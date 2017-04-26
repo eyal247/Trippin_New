@@ -694,7 +694,7 @@ public class TripMapFragment extends Fragment implements ClusterManager.OnCluste
 
         setUpMapIfNeeded();
         if (googleMap != null)
-            mListener.onFragmentInteraction("showTripMap", null);
+            mListener.onFragmentInteraction("showTripMap", (Object)null);
         actvPlaces.setText("");
         showAttractionsButton.setText("Nearby Places");
         similarTripsButton.setText("Similar Trips");
