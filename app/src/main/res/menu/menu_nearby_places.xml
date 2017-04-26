@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.trippin.androidtrippin.NearbyPlacesActivity">
+
+    <item android:id="@+id/action_change_nearby_radius"
+          android:icon="@drawable/ic_filter_white"
+          android:title="radius filter"
+          app:showAsAction="ifRoom" />
+</menu>

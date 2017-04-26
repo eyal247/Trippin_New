@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Settings</string>
+    <string name="empty_string"></string>
+    <string name="str_actv_places">Search a Place</string>
+    <string name="app_name">trippin\'</string>
+    <string name="loginButtonText">Log In</string>
+    <string name="signupButtonText">Sign Up</string>
+    <string name="title_activity_sign_up">Sign Up</string>
+    <string name="retypeEmailText">re-type email</string>
+    <string name="emailText">email</string>
+    <string name="passwordText">password</string>
+    <string name="retypePasswordText">re-type password</string>
+    <string name="NextButtonText">Next</string>
+    <string name="joinTrippinText">Let\'s Get Trippin\'</string>
+    <string name="additionalInfoText">Tell Us About Yourself</string>
+    <string name="errorText">error</string>
+    <string name="title_activity_get_name">Your Name</string>
+    <string name="firstNameHint">First</string>
+    <string name="upload_photo_text">Upload Photo</string>
+    <string name="lastNameHint">Last</string>
+    <string name="inputNameHeader">What\'s your name?</string>
+    <string name="title_activity_sign_up_profile_picture">Profile Picture</string>
+    <string name="signUpSelectText">Select</string>
+    <string name="signUpTakeText">Take</string>
+    <string name="signUpFinishText">Finish</string>
+    <string name="signUpSkipText">skip</string>
+    <string name="addYourPhotoText">Add a Photo</string>
+    <string name="title_activity_home">Home</string>
+    <string name="subtitleText">Plan. Trip. Share</string>
+    <string name="title_activity_plan_trip">Map</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="app_not_available">App Error</string>
+    <string name="title_activity_destination_searchable">Choose Destination</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="AppLabel">trippin\'</string>
+    <string name="DestinationSearchHint">Search Destination</string>
+    <string name="title_activity_new_trip">New Trip Settings</string>
+    <string name="errorMessage">Please select a valid country</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_nearby_places">Nearby Places</string>
+    <string name="title_activity_place_details">Place Details</string>
+    <string name="right_arrow">right_arrow</string>
+    <string name="left_arrow">left_arrow</string>
+    <string name="Place_Name">Place Name</string>
+    <string name="note_title">Title</string>
+    <string name="title_activity_trip_place">Trip Place</string>
+    <string name="about_trippin_string">Welcome trippers!\n\ntrippin\' is a an Android application created by Eyal Engel, Shai Yahli Bader and Dor Gamliel.\ntrippin\' lets you plan your travels around the world based on others\' travels and also document and share them with your friends and other trippers.\n\nSo go ahead and start trippin\'! </string>
+    <string name="plan_new_trip_button_text">Plan New Trip</string>
+    <string name="description_zoom_touch_close">zoom_touch_close</string>
+    <string name="title_activity_similar_trips">Similar Trips</string>
+    <string name="filterTitle">Filter By:</string>
+    <string name="title_activity_similar_trips_form">Similar Trips Filter</string>
+    <string name="title_activity_other_user_trip">Other User Trip</string>
+    <string name="title_activity_image">Photos</string>
+
+    /*************** Google Api Strings ************************/
+    <string name="circles_title">Visible circles:</string>
+    <string name="sign_out_button_name">Sign out</string>
+    <string name="revoke_access_button_name">Revoke</string>
+
+    <string name="status_sign_in_required">Sign-in required</string>
+    <string name="status_sign_in_error">Error signing in: %s</string>
+    <string name="status_loading">Loading…</string>
+    <string name="status_signing_in">Signing in with Google+…</string>
+    <string name="status_signed_out">Signed out</string>
+    <string name="status_revoke_access">Revoked access</string>
+    <string name="status_revoke_access_error">Error revoking access: %s</string>
+    <string name="signed_in_as">Signed in as %s</string>
+
+    <!-- Used if there was an error loading the signed in user's name. -->
+    <string name="unknown_person">Unknown</string>
+    <string name="play_services_error">Google Play services is not available.  This application will close.</string>
+    <string name="close">Close</string>
+    <string name="profile_picture">User\'s profile picture.</string>
+    <string name="mock_server_has_token">Mock server has refresh token?</string>
+    <string name="request_server_auth_code">Request server auth code?</string>
+    <string name="configuration_error">Error: the value of WEB_CLIENT_ID or SERVER_BASE_URL is not  set correctly. This will cause errors when requesting a server auth code.</string>
+    <string name="nearby_places_button_text">Nearby Places</string>
+    <string name="similar_trips_button_text">Similar Trips</string>
+    <string name="title_activity_main_activity2">MainActivity2Activity</string>
+    <string name="moto_hint">Just Trippin\'</string>
+    <string name="title_activity_additional_information">Sign Up</string>
+    <string name="filter_similarity_text">Filter Similarity</string>
+    <string name="change_radius_text">Change Radius</string>
+    <string name="title_activity_long_click_place_form">New Place</string>
+    <string name="title_activity_trip_settings">Settings</string>
+    <string name="change_radius_title">Select nearby places radius:</string>
+    <string name="imageOptions">Image Options</string>
+    <string name="changeProfilePicOptions">Upload Photo</string>
+    <string name="google_places_geo_key">AIzaSyCOrRJR9BjCg0zQfGDhsySHYq7Cev1KA44</string>
+
+    <!-- Facebook SDK Strings -->
+    <string name="facebook_app_id">225719480819046</string>
+    <string name="agree_to_terms"><![CDATA[By signing in you agree to trippin&apos;s]]></string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="error_permission_map">Error Permission</string>
+
+
+</resources>

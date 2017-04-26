@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.trippin.androidtrippin"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+
+    <!--
+ The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but are recommended.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <application
+        android:name=".trippin.AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".trippin.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- <activity android:name="com.facebook.FacebookActivity" -->
+        <!-- android:configChanges= -->
+        <!-- "keyboard|keyboardHidden|screenLayout|screenSize|orientation" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:screenOrientation="portrait"/> -->
+
+        <activity
+            android:name=".trippin.SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:parentActivityName=".trippin.MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".trippin.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.GetNameActivity"
+            android:label="@string/title_activity_sign_up"
+            android:parentActivityName=".trippin.SignUpActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.SignUpActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.SignUpProfilePictureActivity"
+            android:label="@string/title_activity_sign_up"
+            android:parentActivityName=".trippin.AdditionalInformationActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.GetNameActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.maps.v2.API_KEY" -->
+        <!-- android:value="@string/google_maps_key" /> -->
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_places_geo_key"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+
+        <activity
+            android:name=".trippin.PlanTripActivity"
+            android:label="@string/empty_string"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".trippin.NewTripForm"
+            android:label="@string/title_activity_new_trip"
+            android:parentActivityName=".trippin.HomeActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.HomeActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.NearbyPlacesActivity"
+            android:label="@string/title_activity_nearby_places"
+            android:launchMode="singleTop"
+            android:parentActivityName=".trippin.PlanTripActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.PlanTripActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.PlaceDetailsActivity"
+            android:label="@string/empty_string"
+            android:parentActivityName=".trippin.NearbyPlacesActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.NearbyPlacesActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.TripPlaceActivity"
+            android:label="@string/empty_string"
+            android:parentActivityName=".trippin.PlanTripActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.PlanTripActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.SimilarTripsActivity"
+            android:label="@string/title_activity_similar_trips"
+            android:parentActivityName=".trippin.PlanTripActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.PlanTripActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.SimilarTripsForm"
+            android:label="@string/title_activity_similar_trips_form"
+            android:launchMode="singleTop"
+            android:parentActivityName=".trippin.PlanTripActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.PlanTripActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.OtherUserTripActivity"
+            android:label="@string/title_activity_other_user_trip"
+            android:launchMode="singleTop"
+            android:parentActivityName=".trippin.PlanTripActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.SimilarTripsActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.FullScreenImageActivity"
+            android:label="@string/title_activity_image"
+            android:parentActivityName=".trippin.TripPlaceActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.TripPlaceActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.AdditionalInformationActivity"
+            android:label="@string/title_activity_additional_information"
+            android:parentActivityName=".trippin.GetNameActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.trippin.androidtrippin.trippin.GetNameActivity"/>
+        </activity>
+        <activity
+            android:name=".trippin.LongClickPlaceFormActivity"
+            android:label="@string/title_activity_long_click_place_form"
+            android:parentActivityName=".trippin.PlanTripActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".trippin.TripSettingsActivity"
+            android:label="@string/title_activity_trip_settings"
+            android:parentActivityName=".trippin.HomeActivity">
+        </activity>
+
+    </application>
+
+</manifest>

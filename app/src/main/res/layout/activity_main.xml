@@ -1,0 +1,148 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/white"
+    android:id="@+id/main_activity_relative_layout"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:id="@+id/loading_panel_main_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/main_activity_content_rl">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/trippin_logo"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/trippin_logo_id"
+            android:layout_above="@+id/passwordTB"
+            android:layout_alignParentStart="true"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:ems="10"
+            android:id="@+id/usernameTB"
+            android:hint="email"
+            android:autoText="true"
+            style="@style/Base.Widget.AppCompat.EditText"
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/passwordTB"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:hint="password"
+            android:id="@+id/passwordTB"
+            style="@style/Base.Widget.AppCompat.EditText"
+            android:layout_below="@+id/usernameTB"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="LOG IN"
+            android:textAllCaps="false"
+            android:id="@+id/loginButton"
+            android:textSize="16dp"
+            style="@style/buttonStyle"
+            android:layout_below="@+id/forgot_password_TV"
+            android:layout_alignStart="@+id/passwordTB"
+            android:layout_alignEnd="@+id/passwordTB"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="or"
+            android:id="@+id/or_textView"
+            android:textColor="@color/black"
+            android:gravity="center_horizontal|clip_vertical"
+            android:layout_below="@+id/loginButton"
+            android:layout_centerHorizontal="true"/>
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/google_sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_below="@+id/or_textView"
+            android:layout_centerHorizontal="true"/>
+            <!--android:layout_above="@+id/facebook_login_button"-->
+
+
+        <!--<com.facebook.login.widget.LoginButton-->
+            <!--android:id="@+id/facebook_login_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="70dp"-->
+            <!--android:layout_above="@+id/signUpTextView"-->
+            <!--android:layout_marginBottom="33dp"-->
+            <!--android:layout_alignStart="@+id/loginButton"-->
+            <!--android:layout_alignEnd="@+id/loginButton"/>-->
+
+        <TextView
+            style="@style/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="Sign Up"
+            android:id="@+id/signUpTextView"
+            android:textSize="18dp"
+            android:fontFamily=""
+            android:background="@color/transparent"
+            android:textColor="@color/primary"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="forgot password?"
+            android:id="@+id/forgot_password_TV"
+            android:textColor="@color/accent"
+            android:textSize="12dp"
+            android:layout_below="@+id/passwordTB"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:visibility="visible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/agree_to_terms_tv"
+            android:layout_below="@+id/google_sign_in_button"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/terms_gray"
+            android:textIsSelectable="false"
+            android:layout_marginTop="3dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

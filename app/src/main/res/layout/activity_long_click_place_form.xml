@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.trippin.androidtrippin.LongClickPlaceFormActivity"
+                android:id="@+id/new_place_top_relative_layout"
+                android:background="@color/white">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="220dp"
+        android:id="@+id/new_place_image"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="40dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Add Place Photo"
+        android:alpha="0.8"
+        android:id="@+id/add_new_place_photo_Button"
+        android:layout_alignTop="@+id/new_place_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="85dp"
+        android:textColor="@color/white"
+        android:background="@color/transparent_grey_button"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="5dp"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add place to trip"
+        android:id="@+id/add_long_click_place_BTN"
+        style="@style/buttonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/new_place_image"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/new_place_name_ET"
+        android:layout_alignParentTop="true"
+        android:hint="Add place name (required)"
+        android:gravity="center_horizontal"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black"
+        android:textStyle="bold|italic"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/add_long_click_place_BTN"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/new_place_image">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_place_adress_ET"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentStart="true"
+            android:hint="Add place address (required)"
+            android:textColor="@color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="italic"
+            android:layout_alignParentEnd="true"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/new_place_phone_ET"
+            android:layout_below="@+id/new_place_adress_ET"
+            android:layout_alignStart="@+id/new_place_adress_ET"
+            android:layout_alignEnd="@+id/new_place_adress_ET"
+            android:hint="Add place phone number (optional)"
+            android:textColor="@color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/new_place_website_ET"
+            android:layout_below="@+id/new_place_phone_ET"
+            android:layout_alignStart="@+id/new_place_phone_ET"
+            android:layout_alignEnd="@+id/new_place_phone_ET"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic"
+            android:textColor="@color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:hint="Add place website (optional)"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

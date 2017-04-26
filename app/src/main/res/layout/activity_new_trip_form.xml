@@ -1,0 +1,165 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/form_main_layout"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="com.trippin.androidtrippin.NewTripForm"
+                android:background="@color/white">
+
+    <Button
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:text="create trip"
+        android:id="@+id/createTripButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        style="@style/buttonStyle"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trip_name_ET"
+        android:paddingLeft="5dp"
+        android:textSize="16dp"
+        android:layout_below="@+id/trip_name_TV"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/destination_AC"
+        />
+
+    <com.trippin.androidtrippin.model.CustomAutoCompleteTextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/destination_AC"
+        style="Base.Widget.AppCompat.EditText"
+        android:singleLine="false"
+        android:paddingLeft="5dp"
+        android:textSize="16dp"
+        android:text=""
+        android:layout_below="@+id/destinationTV"
+        android:layout_alignParentStart="true"
+        android:completionThreshold="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Departure"
+        android:id="@+id/departureDateTV"
+        android:textSize="16dp"
+        android:layout_below="@+id/destination_AC"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="4dp"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/departureDateET"
+        android:hint="MM/DD/YYYY"
+        android:textSize="14dp"
+        android:inputType="none"
+        android:paddingLeft="5dp"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:layout_below="@+id/departureDateTV"
+        android:layout_marginTop="0dp"
+        android:layout_toStartOf="@+id/returnDate"
+        android:layout_marginRight="50dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return"
+        android:id="@+id/returnDate"
+        android:textSize="16dp"
+        android:layout_above="@+id/returnDateET"
+        android:layout_toEndOf="@+id/goingWithTV"
+        android:layout_alignParentStart="false"
+        android:layout_marginLeft="4dp"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/returnDateET"
+        android:hint="MM/DD/YYYY"
+        android:textSize="14dp"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:editable="false"
+        android:paddingLeft="5dp"
+        android:layout_above="@+id/goingWithTV"
+        android:layout_toEndOf="@+id/destinationTV"/>
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/goingSpinner"
+        android:spinnerMode="dropdown"
+        android:textSize="16dp"
+        style="?android:attr/editTextStyle"
+        android:layout_below="@+id/goingWithTV"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="0dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Where Are You Traveling"
+        android:id="@+id/destinationTV"
+        android:textSize="16dp"
+        android:layout_below="@+id/trip_name_ET"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Who Are You Traveling With"
+        android:id="@+id/goingWithTV"
+        android:textSize="16dp"
+        android:layout_below="@+id/departureDateET"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="4dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="What Is Your Trip Type"
+        android:id="@+id/textView"
+        android:textSize="16dp"
+        android:layout_below="@+id/goingSpinner"
+        android:layout_alignParentStart="false"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="4dp"/>
+
+    <Spinner
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/typeSpinner"
+        android:spinnerMode="dropdown"
+        android:textSize="16dp"
+        style="?android:attr/editTextStyle"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name Your Trip"
+        android:id="@+id/trip_name_TV"
+        android:textSize="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="false"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="15dp"/>
+
+</RelativeLayout>

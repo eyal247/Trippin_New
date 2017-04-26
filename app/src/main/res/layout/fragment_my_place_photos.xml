@@ -1,0 +1,104 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:id="@+id/my_place_photos_frame_layout"
+             tools:context="com.trippin.androidtrippin.fragments.MyPlacePhotosFragment">
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#f0f0f0"
+                    android:id="@+id/my_place_photos_content_RL">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:id="@+id/upload_photo_LL"
+            android:layout_height="50sp"
+            android:textAlignment="center"
+            android:gravity="fill_horizontal|center_vertical"
+            android:paddingLeft="5dp"
+            android:layout_centerHorizontal="true"
+            android:visibility="visible">
+
+            <ImageView
+                android:src="@drawable/ic_plus_red_accent"
+                android:id="@+id/add_photo_button_place_photos_frag"
+                android:layout_marginLeft="115dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload_photo_text"
+                android:textSize="16sp"
+                android:id="@+id/upload_photo"
+                android:textColor="@color/black"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="115dp"
+            android:drawSelectorOnTop="true"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="2dp"
+            android:focusable="true"
+            android:clickable="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/upload_photo_LL"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/no_place_photos_TV"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/refresh_place_photos_IB"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_refresh_black_24dp"
+            android:background="@color/transparent"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/loading_panel_my_place_photos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:id="@+id/progressBar"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+
+</FrameLayout>

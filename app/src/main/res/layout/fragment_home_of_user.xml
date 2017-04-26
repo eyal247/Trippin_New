@@ -1,0 +1,86 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home_of_user_fragment_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="com.trippin.androidtrippin.fragments.HomeOfUserFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:id="@+id/plan_new_trip_button"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp">
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:src="@drawable/ic_add_black_24dp"
+                android:id="@+id/create_new_trip__FAB"
+                android:layout_gravity="center"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:scaleType="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plan_new_trip_button_text"
+                android:textSize="16sp"
+                android:id="@+id/plan_trip_tv"
+                android:textColor="@color/black"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:foregroundGravity="center_vertical|center_horizontal"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/user_trips_listview"
+                android:layout_below="@+id/plan_trip_button"
+                android:dividerHeight="2dp"
+                android:layout_marginTop="2dp">
+            </ListView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Your trips will appear here.\nGo ahead and start trippin&apos;!"
+                android:id="@+id/no_user_trips_TV"
+                android:layout_gravity="center"
+                android:layout_margin="0dp"
+                android:textStyle="italic"
+                android:visibility="gone"
+                android:singleLine="false"
+                android:gravity="center"/>
+
+            <ImageButton
+                android:layout_width="98dp"
+                android:layout_height="94dp"
+                android:id="@+id/my_trips_list_refresh_IB"
+                android:layout_gravity="center"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_refresh_black_24dp"
+                android:layout_marginBottom="30dp"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

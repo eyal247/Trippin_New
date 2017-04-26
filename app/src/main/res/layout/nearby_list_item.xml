@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dip"
+                android:background="@drawable/list_row_selector">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/icon"
+        android:src="@drawable/ic_camera"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="8dp" />
+
+    <TextView
+        android:id="@+id/firstLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/icon"
+        android:layout_toRightOf="@+id/icon"
+        android:textColor="@color/black"
+        android:textSize="@dimen/first_line_dimen"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/secondLine"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstLine"
+        android:textColor="@color/black"
+        android:layout_marginTop="1dip"
+        android:layout_toRightOf="@+id/icon"
+        android:textSize="@dimen/second_line_dimen" />
+
+    <TextView
+        android:id="@+id/third_line"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/secondLine"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/icon"
+        android:textColor="@color/list_item_light_gray"
+        android:textSize="@dimen/third_line_dimen" />
+
+    <TextView
+        android:id="@+id/bottom_right_corner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/list_item_dark_gray"
+        android:textSize="@dimen/bottom_right_corner_dimen" />
+
+</RelativeLayout>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/profile_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:id="@+id/profile_main_layout">
+
+        <FrameLayout
+            android:id="@+id/viewA"
+            android:layout_width="match_parent"
+            android:layout_height="216dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/profile_picture_IV"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Edit Profile Picture"
+                android:id="@+id/profile_change_photo_Button"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:background="@color/transparent_grey_button"
+                android:visibility="invisible"
+                android:layout_alignTop="@+id/profile_picture_IV"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Fname Lname"
+                android:id="@+id/profile_fullname_ET"
+                android:layout_alignParentTop="true"
+                android:editable="false"
+                android:background="@null"
+                android:layout_gravity="center_horizontal|bottom"
+                android:textStyle="bold"
+                android:textSize="26sp"
+                style="@style/AudioFileInfoOverlayText"
+                android:textColor="@color/white"
+                android:visibility="invisible"/>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/viewB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Country:"
+                android:id="@+id/profile_country_title"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="20dp"
+                android:visibility="invisible"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Age:"
+                android:id="@+id/age_TV"
+                android:layout_gravity="left|center_vertical"
+                android:layout_below="@+id/profile_country_title"
+                android:layout_alignStart="@+id/profile_country_title"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Contributions to trippin&apos;:"
+                android:id="@+id/profile_contributions_TV"
+                android:layout_below="@+id/age_TV"
+                android:layout_alignStart="@+id/age_TV"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Moto:"
+                android:id="@+id/profile_moto_TV"
+                android:layout_below="@+id/profile_contributions_TV"
+                android:layout_alignStart="@+id/profile_contributions_TV"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="trippin&apos; Since:"
+                android:id="@+id/date_joined_title_TV"
+                android:layout_below="@+id/moto_ET"
+                android:layout_alignStart="@+id/profile_moto_TV"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible"
+                android:textColor="@color/black"
+                android:textStyle="bold"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profile_country_spinner"
+                android:layout_alignBottom="@+id/profile_country_title"
+                android:layout_toEndOf="@+id/profile_country_title"
+                android:visibility="invisible"/>
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/profile_age_spinner"
+                android:layout_alignBottom="@+id/age_TV"
+                android:layout_toEndOf="@+id/age_TV"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/contributions_TV"
+                android:layout_above="@+id/profile_moto_TV"
+                android:layout_toEndOf="@+id/profile_contributions_TV"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/list_item_dark_gray"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/moto_ET"
+                android:background="@null"
+                android:maxLines = "2"
+                android:scrollbars = "vertical"
+                android:layout_alignTop="@+id/profile_moto_TV"
+                android:layout_toEndOf="@+id/profile_moto_TV"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/list_item_dark_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/profile_dateJoined_tv"
+                android:layout_alignTop="@+id/date_joined_title_TV"
+                android:layout_toEndOf="@+id/date_joined_title_TV"
+                android:layout_marginLeft="5dp"
+                android:layout_below="@+id/moto_ET"
+                android:textColor="@color/list_item_dark_gray"/>
+        </RelativeLayout>
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/refresh_profile_IB"
+            android:layout_alignBottom="@+id/profile_country_TV"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_refresh_black_24dp"
+            android:visibility="gone"
+            android:background="@color/transparent"/>
+
+
+    </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit_profile_FAB"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="center"
+        android:clickable="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_create_black_24dp"
+        app:layout_anchor="@id/viewA"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/save_changes_FAB"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="center"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_save_black_24dp"
+        app:layout_anchor="@id/viewA"
+        app:layout_anchorGravity="bottom|left|end"
+        android:visibility="invisible"
+        />
+
+    <RelativeLayout
+        android:id="@+id/loading_panel_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+
+

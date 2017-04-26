@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="home_navigation_list">
+        <item>Home</item>
+        <item>My Profile</item>
+        <item>About trippin\'</item>
+        <item>Logout</item>
+    </string-array>
+    <string-array name="plan_trip_navigation_list">
+        <item>Map</item>
+        <item>My Trip Places</item>
+        <item>Trip Settings</item>
+        <item>Home</item>
+        <item>Logout</item>
+    </string-array>
+    <string-array name="similar_trips_filter_spinner_list">
+        <item>Date</item>
+        <item>Traveling With</item>
+        <item>Trip Type</item>
+    </string-array>
+</resources>

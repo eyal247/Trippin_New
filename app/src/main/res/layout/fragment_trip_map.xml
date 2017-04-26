@@ -1,0 +1,110 @@
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+             <!--xmlns:tools="http://schemas.android.com/tools"-->
+             <!--android:layout_width="match_parent"-->
+             <!--android:layout_height="match_parent"-->
+             <!--tools:context="com.example.eyalengel.fragments.TripMapFragment">-->
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/plan_trip_relative_layout_frag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary"
+                    tools:context="com.trippin.androidtrippin.trippin.PlanTripActivity">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:id="@+id/map_frag"
+                  android:theme="@style/Theme.AppCompat.Light"
+                  android:name="com.google.android.gms.maps.SupportMapFragment"
+                  android:layout_alignParentBottom="true"/>
+
+    <com.trippin.androidtrippin.model.CustomAutoCompleteTextView
+        android:id="@+id/actv_places"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="34dp"
+        style="Base.Widget.AppCompat.EditText"
+        android:background="@color/white"
+        android:textSize="18sp"
+        android:hint="@string/str_actv_places"
+        android:paddingLeft="5dp"
+        android:maxLines="1"
+        android:completionThreshold="1"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <Button
+        android:textAllCaps="false"
+        android:alpha="0.85"
+        android:id="@+id/nearby_places_button_map_frag"
+        android:background="@color/primary"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_width="160dp"
+        android:textStyle="normal"
+        android:text="@string/nearby_places_button_text"
+        android:layout_height="35dp"
+        android:layout_marginLeft="15dp"
+        android:layout_above="@+id/tableLayout"
+        android:layout_marginRight="10dp"
+        android:layout_alignRight="@+id/actv_places"/>
+
+    <Button
+        android:textAllCaps="false"
+        android:text="@string/similar_trips_button_text"
+        android:alpha="0.85"
+        android:id="@+id/similar_trips_button_frag"
+        android:background="@color/primary"
+        android:textColor="@color/white"
+        android:textStyle="normal"
+        android:textSize="16sp"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:layout_column="2"
+        android:layout_marginLeft="10dp"
+        android:layout_above="@+id/tableLayout"
+        android:layout_alignStart="@+id/actv_places"
+        android:layout_alignLeft="@+id/actv_places" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="false"
+        android:id="@+id/tableLayout">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="7dp">
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Back To My Trip"
+        android:visibility="invisible"
+        android:clickable="false"
+        android:id="@+id/similar_trip_mode_TV"
+        android:textColor="@color/white"
+        android:background="@color/transparent_accent"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" />
+
+</RelativeLayout>
+
+<!--</FrameLayout>-->

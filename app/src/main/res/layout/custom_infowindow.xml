@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_height="wrap_content"
+              android:layout_width="wrap_content"
+    >
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="275dp"
+        android:layout_height="66dp"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/place_name_frag_tv"
+            android:textAlignment="center"
+            android:text="@string/Place_Name"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:text="Info"
+            android:id="@+id/info_button"
+            style="@style/buttonStyle"
+            android:textSize="14sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+</LinearLayout>

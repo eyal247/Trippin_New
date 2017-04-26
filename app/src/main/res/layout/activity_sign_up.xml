@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@color/white"
+    tools:context="com.trippin.androidtrippin.SignUpActivity"
+    android:id="@+id/signUpRelativeLayout"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/joinTrippinText"
+        android:id="@+id/joinTrippinText"
+        android:layout_marginTop="30dp"
+        android:textSize="24sp"
+        android:textColor="@color/primary"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="@string/emailText"
+        android:ems="10"
+        android:textSize="16dp"
+        android:id="@+id/usernameTB"
+        android:layout_below="@+id/joinTrippinText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="@string/retypeEmailText"
+        android:textSize="16dp"
+        android:ems="10"
+        android:id="@+id/user_moto_ET"
+        android:layout_below="@+id/usernameTB"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="@string/passwordText"
+        android:ems="10"
+        android:textSize="16dp"
+        android:id="@+id/passwordTB"
+        android:layout_below="@+id/user_moto_ET"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="@string/retypePasswordText"
+        android:ems="10"
+        android:id="@+id/retypePasswordTB"
+        android:textSize="16dp"
+        android:layout_below="@+id/passwordTB"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="220dp"
+        android:text="@string/NextButtonText"
+        android:id="@+id/nextButton"
+        style="@style/buttonStyle"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_height="35dp"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,314 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/settings_form_main_layout"
+                tools:context="com.trippin.androidtrippin.TripSettingsActivity"
+                android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView2"
+        android:clickable="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Trip Name"
+                    android:id="@+id/settings_trip_name_TV"
+                    android:textSize="16dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentLeft="false"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="270dp"
+                    android:textColor="@color/black"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/settings_trip_name_ET"
+                    android:paddingLeft="5dp"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/settings_trip_name_TV"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Destination"
+                    android:id="@+id/settings_destinationTV"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/settings_trip_name_ET"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentLeft="false"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="18dp"
+                    android:textColor="@color/black"/>
+
+                <com.trippin.androidtrippin.model.CustomAutoCompleteTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/settings_destination_AC"
+                    style="Base.Widget.AppCompat.EditText"
+                    android:enabled="false"
+                    android:background="@null"
+                    android:paddingLeft="5dp"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/settings_destinationTV"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:completionThreshold="1"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Departure"
+                    android:id="@+id/settings_departureDateTV"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/settings_destination_AC"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentLeft="false"
+                    android:layout_marginLeft="18dp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="15dp"/>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/settings_departureDateET"
+                    android:hint="MM/DD/YYYY"
+                    android:textSize="14dp"
+                    android:inputType="none"
+                    android:paddingLeft="5dp"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:layout_below="@+id/settings_departureDateTV"
+                    android:layout_marginTop="0dp"
+                    android:layout_toStartOf="@+id/returnDate"
+                    android:layout_toLeftOf="@+id/returnDate"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginLeft="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Return"
+                    android:id="@+id/returnDate"
+                    android:textSize="16dp"
+                    android:layout_alignTop="@+id/settings_departureDateTV"
+                    android:layout_toEndOf="@+id/settings_goingWithTV"
+                    android:layout_toRightOf="@+id/settings_goingWithTV"
+                    android:paddingLeft="4dp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="10dp"/>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/settings_goingSpinner"
+                    android:spinnerMode="dropdown"
+                    android:textSize="16dp"
+                    style="?android:attr/editTextStyle"
+                    android:layout_below="@+id/settings_goingWithTV"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="15dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Who Are You Traveling With"
+                    android:id="@+id/settings_goingWithTV"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/settings_departureDateET"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="18dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="What Is Your Trip Type"
+                    android:id="@+id/settings_tripType_TV"
+                    android:textSize="16dp"
+                    android:layout_below="@+id/settings_goingSpinner"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="18dp"
+                    android:textColor="@color/black"/>
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/settings_tripType_Spinner"
+                    android:spinnerMode="dropdown"
+                    android:textSize="16dp"
+                    style="?android:attr/editTextStyle"
+                    android:layout_below="@+id/settings_tripType_TV"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"/>
+
+                <!--<ImageButton-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/settings_edit_ImageButton"-->
+                    <!--android:src="@drawable/ic_mode_edit_black_24dp"-->
+                    <!--android:background="@color/transparent"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_alignParentEnd="true"/>-->
+
+                <Switch
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/settings_tripType_Spinner"
+                    android:id="@+id/share_trip_switch"
+                    android:textColor="@color/black"
+                    android:text="Share Trip"
+                    android:layout_alignEnd="@+id/settings_departureDateET"
+                    android:layout_alignRight="@+id/settings_departureDateET"
+                    android:layout_alignStart="@+id/settings_tripType_TV"
+                    android:layout_alignLeft="@+id/settings_tripType_TV"
+                    android:textSize="16dp"
+                    android:checked="false"
+                    />
+
+                <Button
+                    android:layout_width="220dp"
+                    android:layout_height="35dp"
+                    android:text="Delete Trip"
+                    android:id="@+id/settings_delete_trip_Button"
+                    style="@style/deleteButtonStyle"
+                    android:layout_alignParentBottom="false"
+                    android:layout_below="@+id/share_trip_switch"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentEnd="false"
+                    android:layout_alignParentRight="false"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18dp"/>
+
+                <FrameLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="215dp"
+                    android:id="@+id/trip_settings_imageView_layout"
+                    android:orientation="horizontal"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true">
+
+                    <ImageView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/settings_cover_photo_IV"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        />
+                </FrameLayout>
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/settings_returnDateET"
+                    android:hint="MM/DD/YYYY"
+                    android:textSize="14dp"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:paddingLeft="5dp"
+                    android:layout_below="@+id/returnDate"
+                    android:layout_alignLeft="@+id/returnDate"
+                    android:layout_alignStart="@+id/returnDate" />
+
+            </RelativeLayout>
+
+
+            <!--<Button-->
+                <!--android:layout_width="220dp"-->
+                <!--android:layout_height="35dp"-->
+                <!--android:text="Save Changes"-->
+                <!--android:id="@+id/settings_save_button"-->
+                <!--style="@style/buttonStyle"-->
+                <!--android:layout_below="@+id/share_trip_switch"-->
+                <!--android:layout_alignParentStart="false"-->
+                <!--android:layout_alignParentEnd="false"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textSize="18dp"/>-->
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Edit Trip Photo"
+                android:id="@+id/settings_change_cover_photo_Button"
+                android:layout_gravity="center"
+                android:layout_marginTop="80dp"
+                android:textColor="@color/white"
+                android:background="@color/transparent_grey_button"
+                android:visibility="invisible"
+                android:layout_centerHorizontal="true"
+                android:padding="5dp"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/settings_edit_FAB"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="center"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_create_black_24dp"
+        app:layout_anchor="@id/trip_settings_imageView_layout"
+        app:layout_anchorGravity="bottom|right|end"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/settings_save_FAB"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="center"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/ic_save_black_24dp"
+        app:layout_anchor="@id/trip_settings_imageView_layout"
+        app:layout_anchorGravity="bottom|left|end"
+        android:visibility="invisible"
+        android:fillViewport="false"/>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

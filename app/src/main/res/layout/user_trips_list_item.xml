@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_height="300dp"
+              android:layout_width="match_parent">
+
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:id="@+id/user_trip_img"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/trip_name_tv"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="26sp"
+        style="@style/AudioFileInfoOverlayText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical|center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=""
+        android:textSize="16sp"
+        style="@style/AudioFileInfoOverlayText"
+        android:id="@+id/user_trip_dest"
+        android:textColor="@color/white"
+        android:layout_below="@+id/trip_name_tv"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        style="@style/AudioFileInfoOverlayText"
+        android:id="@+id/user_trip_dates_tv"
+        android:layout_below="@+id/user_trip_dest"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=""
+        style="@style/AudioFileInfoOverlayText"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:id="@+id/user_trips_with_tv"
+        android:layout_below="@+id/user_trip_dates_tv"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text=""
+        style="@style/AudioFileInfoOverlayText"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:id="@+id/user_trips_type_tv"
+        android:layout_below="@+id/user_trips_with_tv"
+        android:layout_centerHorizontal="true"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:scaleType="center"
+        android:id="@+id/trip_settings_FAB"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/ic_settings_accent_24dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"/>
+
+</RelativeLayout>

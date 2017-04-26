@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    useLibrary  'org.apache.http.legacy'
+
+    defaultConfig {
+        applicationId "com.trippin.androidtrippin"
+        minSdkVersion 16
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile files('libs/ion-2.1.2.jar')
+    compile files('libs/androidasync-2.1.2.jar')
+
+    compile ('com.android.support:appcompat-v7:25.3.1'){
+        exclude group: 'appcompat', module: 'appcompat'
+    }
+
+    compile ('com.android.support:support-v4:24.0.0'){
+        exclude group: 'support', module: 'support'
+    }
+    compile ('com.mcxiaoke.volley:library:1.0.19'){
+        exclude group: 'library', module: 'library'
+    }
+    compile ('com.google.android.gms:play-services:8.3.0'){
+        exclude group: 'play-services', module: 'play-services'
+    }
+    compile ('com.google.maps.android:android-maps-utils:0.3.1'){
+        exclude group: 'android-maps-utils', module: 'android-maps-utils'
+    }
+    compile ('de.hdodenhof:circleimageview:1.3.0'){
+        exclude group: 'circleimageview', module: 'circleimageview'
+    }
+    compile ('com.github.chrisbanes.photoview:library:1.2.3'){
+        exclude group: 'library', module: 'library'
+    }
+    compile ('com.android.support:design:24.2.1'){
+        exclude group: 'design', module: 'design'
+    }
+    compile ('com.nineoldandroids:library:2.4.0'){
+        exclude group: 'library', module: 'library'
+    }
+    compile ('com.daimajia.androidanimations:library:1.1.3@aar'){
+        exclude group: 'library', module: 'library'
+    }
+    compile ('com.github.nkzawa:socket.io-client:0.4.1'){
+        exclude group: 'org.json', module: 'json'
+    }
+}

@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:id="@+id/fragment_nearby_type_main_layout"
+             tools:context="com.trippin.androidtrippin.fragments.NearbyPlacesTypeFragment">
+
+    <ListView
+        android:id="@+id/nearby_places_list_frag"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/list_divider"
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/list_row_selector">
+    </ListView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Sorry. No nearby places available."
+        android:id="@+id/no_nearby_places_TV"
+        android:layout_gravity="center"
+        android:textStyle="italic"
+        android:visibility="gone"/>
+
+</FrameLayout>

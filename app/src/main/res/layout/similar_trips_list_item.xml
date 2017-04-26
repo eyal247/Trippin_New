@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dip"
+                android:background="@drawable/list_row_selector">
+
+    <ImageView
+        android:id="@+id/similar_trip_IV"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="6dip"
+        android:contentDescription="TODO"/>
+
+    <TextView
+        android:id="@+id/similar_trip_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/similar_trip_IV"
+        android:layout_toRightOf="@+id/similar_trip_IV"
+        android:textColor="@color/black"
+        android:textSize="@dimen/first_line_dimen"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/similar_trip_destination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/similar_trip_name"
+        android:layout_marginTop="1dip"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@+id/similar_trip_IV"
+        android:textSize="@dimen/second_line_dimen"
+        />
+
+    <TextView
+        android:id="@+id/similar_trip_tripper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/similar_trip_destination"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/similar_trip_IV"
+        android:textColor="@color/list_item_light_gray"
+        android:textSize="@dimen/third_line_dimen"
+        />
+
+    <TextView
+        android:id="@+id/similar_trip_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/list_item_dark_gray"
+        android:textSize="@dimen/bottom_right_corner_dimen" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/similar_trip_list_item_ratingBar"
+        android:layout_below="@+id/similar_trip_tripper"
+        android:stepSize="0.5"
+        style="?android:attr/ratingBarStyleSmall"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:layout_alignStart="@+id/similar_trip_tripper"
+        android:layout_marginTop="5dp"/>
+
+</RelativeLayout>
+
