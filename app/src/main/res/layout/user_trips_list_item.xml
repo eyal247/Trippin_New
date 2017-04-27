@@ -77,14 +77,15 @@
         android:layout_centerHorizontal="true"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:scaleType="center"
         android:id="@+id/trip_settings_FAB"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:src="@drawable/ic_settings_accent_24dp"
+        android:src="@drawable/ic_settings_black_24dp_a"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

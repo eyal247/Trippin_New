@@ -689,6 +689,9 @@ public class PlaceDetailsFragment extends Fragment implements OnGooglePlaceLoadL
                 AppUtils.showSnackBarMsgWithAction(getActivity(), placeDetailsLayout, snackBarListener);
                 mainView.findViewById(R.id.loading_panel_place_details_fragment).setVisibility(View.GONE);
                 break;
+            case AppConstants.PLACE_IS_NULL:
+                getActivity().onBackPressed();
+                break;
             default:
                 System.out.println("error on onGooglePlaceLoadFinished switch case");
         }

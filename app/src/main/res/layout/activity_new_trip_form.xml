@@ -7,7 +7,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.trippin.androidtrippin.NewTripForm"
+                tools:context="com.trippin.androidtrippin.trippin.NewTripForm"
                 android:background="@color/white">
 
     <Button
@@ -19,7 +19,9 @@
         android:layout_marginBottom="10dp"
         android:layout_alignParentStart="false"
         android:layout_alignParentEnd="false"
-        style="@style/buttonStyle"/>
+        style="@style/buttonStyle"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentRight="false" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -30,20 +32,21 @@
         android:layout_below="@+id/trip_name_TV"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/destination_AC"
-        />
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/destination_AC" />
 
     <com.trippin.androidtrippin.model.CustomAutoCompleteTextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/destination_AC"
         style="Base.Widget.AppCompat.EditText"
-        android:singleLine="false"
         android:paddingLeft="5dp"
         android:textSize="16dp"
         android:text=""
         android:layout_below="@+id/destinationTV"
         android:layout_alignParentStart="true"
-        android:completionThreshold="1"/>
+        android:completionThreshold="1"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -54,7 +57,8 @@
         android:layout_below="@+id/destination_AC"
         android:layout_alignParentStart="false"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="4dp"/>
+        android:layout_marginLeft="4dp"
+        android:layout_alignParentLeft="false" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -63,14 +67,16 @@
         android:id="@+id/departureDateET"
         android:hint="MM/DD/YYYY"
         android:textSize="14dp"
-        android:inputType="none"
         android:paddingLeft="5dp"
         android:cursorVisible="false"
         android:focusable="false"
+        android:clickable="true"
+        android:inputType="date"
         android:layout_below="@+id/departureDateTV"
         android:layout_marginTop="0dp"
         android:layout_toStartOf="@+id/returnDate"
-        android:layout_marginRight="50dp"/>
+        android:layout_marginRight="50dp"
+        android:layout_toLeftOf="@+id/returnDate" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,7 +87,9 @@
         android:layout_above="@+id/returnDateET"
         android:layout_toEndOf="@+id/goingWithTV"
         android:layout_alignParentStart="false"
-        android:layout_marginLeft="4dp"/>
+        android:layout_marginLeft="4dp"
+        android:layout_toRightOf="@+id/goingWithTV"
+        android:layout_alignParentLeft="false" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -92,10 +100,12 @@
         android:textSize="14dp"
         android:cursorVisible="false"
         android:focusable="false"
-        android:editable="false"
+        android:inputType="date"
         android:paddingLeft="5dp"
+        android:clickable="true"
         android:layout_above="@+id/goingWithTV"
-        android:layout_toEndOf="@+id/destinationTV"/>
+        android:layout_toEndOf="@+id/destinationTV"
+        android:layout_toRightOf="@+id/destinationTV" />
 
     <Spinner
         android:layout_width="fill_parent"
@@ -106,7 +116,8 @@
         style="?android:attr/editTextStyle"
         android:layout_below="@+id/goingWithTV"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="0dp"/>
+        android:layout_marginTop="0dp"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -117,7 +128,8 @@
         android:layout_below="@+id/trip_name_ET"
         android:layout_alignParentStart="false"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="4dp"/>
+        android:layout_marginLeft="4dp"
+        android:layout_alignParentLeft="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -128,7 +140,8 @@
         android:layout_below="@+id/departureDateET"
         android:layout_alignParentStart="false"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="4dp"/>
+        android:layout_marginLeft="4dp"
+        android:layout_alignParentLeft="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -139,7 +152,8 @@
         android:layout_below="@+id/goingSpinner"
         android:layout_alignParentStart="false"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="4dp"/>
+        android:layout_marginLeft="4dp"
+        android:layout_alignParentLeft="false" />
 
     <Spinner
         android:layout_width="fill_parent"
@@ -149,7 +163,8 @@
         android:textSize="16dp"
         style="?android:attr/editTextStyle"
         android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -160,6 +175,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="false"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:layout_alignParentLeft="false" />
 
 </RelativeLayout>

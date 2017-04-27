@@ -48,7 +48,7 @@
     <string name="note_title">Title</string>
     <string name="title_activity_trip_place">Trip Place</string>
     <string name="about_trippin_string">Welcome trippers!\n\ntrippin\' is a an Android application created by Eyal Engel, Shai Yahli Bader and Dor Gamliel.\ntrippin\' lets you plan your travels around the world based on others\' travels and also document and share them with your friends and other trippers.\n\nSo go ahead and start trippin\'! </string>
-    <string name="plan_new_trip_button_text">Plan New Trip</string>
+    <string name="plan_new_trip_button_text">Plan A New Trip</string>
     <string name="description_zoom_touch_close">zoom_touch_close</string>
     <string name="title_activity_similar_trips">Similar Trips</string>
     <string name="filterTitle">Filter By:</string>

@@ -151,9 +151,14 @@ public class GooglePlaceLoader
             @Override
             protected Object doInBackground(Object[] params)
             {
-                String formattedPlaceName = formatPlaceName(place.getName());
-                String placeDescriptionRequestURL = "https://www.googleapis.com/freebase/v1/text/en/"+formattedPlaceName; //TODO: FIND NEW DB FOR PLACE DESCRIPTION
-                results = GooglePlacesUtils.makeCall(placeDescriptionRequestURL);
+                String formattedPlaceName;
+                String placeDescriptionRequestURL;
+
+                if(place != null) {
+                    formattedPlaceName = formatPlaceName(place.getName());
+                    placeDescriptionRequestURL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=" + formattedPlaceName;//"hts="+place.getName(); //TODO: FIND NEW DB FOR PLACE DESCRIPTION
+                    results = GooglePlacesUtils.makeCall(placeDescriptionRequestURL);
+                }
                 return null;
             }
 
@@ -162,17 +167,22 @@ public class GooglePlaceLoader
             {
                 super.onPostExecute(o);
 
-                place.setDescription(GooglePlacesUtils.parseGooglePlaceDescriptionJson(results));
-                mListener.onGooglePlaceLoadFinished(AppConstants.RESPONSE_SUCCESS, place);
+                if(place!=null) {
+                    place.setDescription(GooglePlacesUtils.parseGooglePlaceDescriptionJson(results));
+                    mListener.onGooglePlaceLoadFinished(AppConstants.RESPONSE_SUCCESS, place);
+                } else {
+                    mListener.onGooglePlaceLoadFinished(AppConstants.PLACE_IS_NULL, place);
+                }
             }
         }.execute();
     }
+
 
     private String formatPlaceName(String name)
     {
         String formattedName = name;
 
-        formattedName = formattedName.replaceAll(" ", "_").toLowerCase();
+        formattedName = formattedName.replaceAll(" ", "_");
 
         return formattedName;
     }

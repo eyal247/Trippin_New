@@ -14,6 +14,10 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by shaiyahli on 5/17/2015.
@@ -178,19 +182,69 @@ public class GooglePlacesUtils
 
     public static String parseGooglePlaceDescriptionJson(String descriptionJson){
         String description = "";
+        Map<String, Object> map = new HashMap<String, Object>();
 
-        try {
-            JSONObject jsonObject = new JSONObject(descriptionJson);
-
-            if (jsonObject.has("result")) {
-                description = jsonObject.optString("result");
+            try {
+                if(descriptionJson!=null) {
+                    JSONObject jsonObject = new JSONObject(descriptionJson);
+                    map = jsonToMap(jsonObject);
+                    Map<String, Object> queryMap = (Map<String, Object>) map.get("query");
+                    Map<String, Object> pagesMap = (Map<String, Object>) queryMap.get("pages");
+                    Map.Entry<String, Object> entry = pagesMap.entrySet().iterator().next();
+                    Map<String, Object> finalMap = (Map<String, Object>) entry.getValue();
+                    if (finalMap.containsKey("extract"))
+                        description = (String) finalMap.get("extract");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
         return description;
+    }
+
+    public static Map<String, Object> jsonToMap(JSONObject json) throws JSONException {
+        Map<String, Object> retMap = new HashMap<String, Object>();
+
+        if(json != JSONObject.NULL) {
+            retMap = toMap(json);
+        }
+        return retMap;
+    }
+
+    public static Map<String, Object> toMap(JSONObject object) throws JSONException {
+        Map<String, Object> map = new HashMap<String, Object>();
+
+        Iterator<String> keysItr = object.keys();
+        while(keysItr.hasNext()) {
+            String key = keysItr.next();
+            Object value = object.get(key);
+
+            if(value instanceof JSONArray) {
+                value = toList((JSONArray) value);
+            }
+
+            else if(value instanceof JSONObject) {
+                value = toMap((JSONObject) value);
+            }
+            map.put(key, value);
+        }
+        return map;
+    }
+
+    public static List<Object> toList(JSONArray array) throws JSONException {
+        List<Object> list = new ArrayList<Object>();
+        for(int i = 0; i < array.length(); i++) {
+            Object value = array.get(i);
+            if(value instanceof JSONArray) {
+                value = toList((JSONArray) value);
+            }
+
+            else if(value instanceof JSONObject) {
+                value = toMap((JSONObject) value);
+            }
+            list.add(value);
+        }
+        return list;
     }
 
     public static GooglePlace parseGooglePlacesDetailsJson(String detailsJson)

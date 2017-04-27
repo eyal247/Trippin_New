@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
+import com.trippin.androidtrippin.model.AppConstants;
 import com.trippin.androidtrippin.model.DateUtils;
 import com.trippin.androidtrippin.model.OnFragmentInteractionListener;
 import com.trippin.androidtrippin.R;
@@ -70,22 +71,22 @@ public class DatesPickerFragment extends DialogFragment implements DatePickerDia
 //            Date returnDate = ((NewTripForm)getActivity()).getReturnDateForDateFragment();
             if(otherTypeDate != null)
             {
-                if(currDateInET==null) {
-                    if(otherTypeDate.after(today)) {
-                        calendar.setTime(today);
+                if(!otherTypeDate.equals(AppConstants.EMPTY_STRING)) {
+                    if (currDateInET == null) {
+                        if (otherTypeDate.after(today)) {
+                            calendar.setTime(today);
+                            calendarHelper.setTime(otherTypeDate);
+                            dpd.getDatePicker().setMaxDate(calendarHelper.getTimeInMillis());
+                        } else {
+                            calendar.setTime(otherTypeDate);
+                            dpd.getDatePicker().setMaxDate(calendar.getTimeInMillis());
+                        }
+                    } else {
+                        calendar.setTime(currDateInET);
                         calendarHelper.setTime(otherTypeDate);
+                        dpd.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
                         dpd.getDatePicker().setMaxDate(calendarHelper.getTimeInMillis());
                     }
-                     else {
-                        calendar.setTime(otherTypeDate);
-                        dpd.getDatePicker().setMaxDate(calendar.getTimeInMillis());
-                    }
-                }
-                else {
-                    calendar.setTime(currDateInET);
-                    calendarHelper.setTime(otherTypeDate);
-                    dpd.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                    dpd.getDatePicker().setMaxDate(calendarHelper.getTimeInMillis());
                 }
             }
         }

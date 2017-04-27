@@ -250,12 +250,10 @@ public class NearbyPlacesActivity extends MyActionBarActivity implements OnFragm
                 types = "lodging|campground";
                 break;
             case "Food & Drinks":
-                types = "food|restaurant|bakery|bar|meal_delivery|meal_takeaway|cafe|convenience_store|grocery_or_supermarket|liquor_store";
+                types = "restaurant|cafe|bar|bakery|meal_delivery";//"food|restaurant|bakery|bar|meal_delivery|meal_takeaway|cafe|convenience_store|grocery_or_supermarket|liquor_store";
                 break;
             case "Attractions":
-                types = "amusement_park|aquarium|art_gallery|library|bowling_alley|mosque|movie_theater|museum|night_club|" +
-                        "casino|park|cemetery|church|city_hall|place_of_worship|courthouse|embassy|shopping_mall|" +
-                        "spa|stadium|synagogue|university|hindu_temple|zoo|point_of_interest|establishment";
+                types = "park|museum|church|zoo|aquarium|shopping_mall|art_gallery|city_hall|amusement_park|synagogue|stadium|mosque|casino|night_club";
                 break;
             default:
                 System.out.println("Places Types error");
@@ -273,10 +271,10 @@ public class NearbyPlacesActivity extends MyActionBarActivity implements OnFragm
         return types;
     }
 
-    private String getResultsFromGooglePlaces(String types){
+    private String getResultsFromGooglePlaces(String type){
         String results;
 
-        results = GooglePlacesUtils.makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + chosenRadius+ "&rankby=prominence&types="+ types + "&key=" + GoogleServerKey.GOOGLE_SERVER_KEY);
+        results = GooglePlacesUtils.makeCall("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + chosenRadius+ "&rankby=prominence&type="+ type + "&key=" + GoogleServerKey.GOOGLE_SERVER_KEY);
 
         return results;
     }

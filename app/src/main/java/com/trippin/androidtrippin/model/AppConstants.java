@@ -63,6 +63,7 @@ public class AppConstants
     public static final int CAMERA_ROLL_REQUEST_CODE = 1;
     public static final int CAMERA_REQUEST_CODE = 2;
     public static final int NUM_OF_SIMILARITY_FILTERS = 3;
+    public static final String PLACE_IS_NULL = "Place is Null";
     public static int NumOfNavListItemsInHomeActivity = 4;
     public static final float MIN_RATING = 0.0f;
     public static final int IMAGE_MAX_SIZE = 1024;

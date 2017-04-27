@@ -58,7 +58,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -305,44 +307,53 @@ public class NewTripForm extends MyActionBarActivity implements OnFragmentIntera
 
     private void handleDatePickerClicked(View v)
     {
-        Date otherTypeDate = checkOtherTypeDate();
-        Date currDateInEditText = checkCurrDateInEditText();
+        String otherTypeDate = checkOtherTypeDate();
+        String currDateInEditText = checkCurrDateInEditText();
         DatesPickerFragment datesFragment = new DatesPickerFragment();
         Bundle argsBundle = setArgsBundle(currDateInEditText, otherTypeDate);
         datesFragment.setArguments(argsBundle);
         datesFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
-    private Bundle setArgsBundle(Date currDateInEditText, Date otherTypeDate) {
+    private Bundle setArgsBundle(String currDateInEditText, String otherTypeDate) {
         Bundle bundle = new Bundle();
 
         bundle.putString("date_type_clicked", dateTypeClicked);
-        bundle.putString("curr_date", DateUtils.dateToString(currDateInEditText));
-        bundle.putString("other_type_date", DateUtils.dateToString(otherTypeDate));
+        bundle.putString("curr_date", currDateInEditText);
+        bundle.putString("other_type_date", otherTypeDate);
 
         return bundle;
     }
 
-    private Date checkCurrDateInEditText()
+    private String checkCurrDateInEditText()
     {
-        Date currDateInEditText = null;
+        String currDateInEditText = AppConstants.EMPTY_STRING;
+        String currDateStr = getCurrDateStr();
 
         if(dateTypeClicked == "departureET" && !departureET.getText().toString().equals(AppConstants.EMPTY_STRING))
-            currDateInEditText = DateUtils.stringToDate(departureET.getText().toString());
+            currDateInEditText = departureET.getText().toString();
         else if (dateTypeClicked == "returnET" && !returnET.getText().toString().equals(AppConstants.EMPTY_STRING))
-            currDateInEditText = DateUtils.stringToDate(returnET.getText().toString());
+            currDateInEditText = returnET.getText().toString();
 
         return currDateInEditText;
     }
 
-    private Date checkOtherTypeDate()
+    private String getCurrDateStr() {
+        Date now = Calendar.getInstance().getTime();
+        String formattedDate = DateUtils.dateToString(now);
+
+        return formattedDate;
+    }
+
+    private String checkOtherTypeDate()
     {
-        Date othertypeDate = null;
+        String othertypeDate = AppConstants.EMPTY_STRING;
+        String currDateStr = getCurrDateStr();
 
         if(dateTypeClicked == "departureET" && !returnET.getText().toString().equals(AppConstants.EMPTY_STRING))
-            othertypeDate = DateUtils.stringToDate(returnET.getText().toString());
-        else if (dateTypeClicked == "returnET" && !departureET.getText().toString().equals(AppConstants.EMPTY_STRING))
-            othertypeDate = DateUtils.stringToDate(departureET.getText().toString());
+            othertypeDate = returnET.getText().toString();
+        if (dateTypeClicked == "returnET" && !departureET.getText().toString().equals(AppConstants.EMPTY_STRING))
+            othertypeDate = departureET.getText().toString();
 
         return othertypeDate;
     }

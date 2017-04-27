@@ -52,7 +52,8 @@ public class DateUtils
         SimpleDateFormat myFormat = new SimpleDateFormat("MM/dd/yyyy");
         Date date = null;
         try {
-            date = myFormat.parse(dateStr);
+            if(!dateStr.equals(AppConstants.EMPTY_STRING))
+                date = myFormat.parse(dateStr);
         } catch (ParseException e) {
             e.printStackTrace();
         }

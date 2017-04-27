@@ -353,6 +353,9 @@ public class TripMapFragment extends Fragment implements ClusterManager.OnCluste
     private void  showDropDown(CharSequence s)
     {
         final String sAsString = s.toString();
+        LatLngBounds bounds = googleMap.getProjection().getVisibleRegion().latLngBounds;
+        destLat = bounds.getCenter().latitude;
+        destLng = bounds.getCenter().longitude;
 
         new AsyncTask(){
 
@@ -893,7 +896,7 @@ public class TripMapFragment extends Fragment implements ClusterManager.OnCluste
 
             // Obtain browser key from https://code.google.com/apis/console
             //AIzaSyAD9nllP0DMAuh-HD0WXz-WwxcVim1W5nU
-            String key = "key="+ "AIzaSyAHVhL7VhaZ4BG-HfILxUsqGZqafzCv3Ps"; //todo: make a constant if working
+            String key = "key="+ GoogleServerKey.GOOGLE_SERVER_KEY;
 
             String input="";
 
@@ -913,7 +916,7 @@ public class TripMapFragment extends Fragment implements ClusterManager.OnCluste
             //String types = "(regions)|(cities)";
 
             // Building the parameters to the web service
-            String parameters = input+"&"+"&"+key+sensor;  //"&"+types+
+            String parameters = input+"&"+"location=" + destLat + "," + destLng + "&radius=2000" +  "&"+key+sensor;  //"&"+types+
 
             // Output format
             String output = "json";
