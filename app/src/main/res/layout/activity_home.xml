@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context="com.trippin.androidtrippin.HomeActivity">
+        tools:context="com.trippin.androidtrippin.trippin.HomeActivity">
     </RelativeLayout>
 
     <ListView android:id="@+id/left_drawer"

@@ -3,9 +3,9 @@
 
     <color name="yellow">#ffed3f</color>
     <color name="errorTB">#E81700</color>
-    <color name="primary">#FFC107</color>
-    <color name="primary_dark">#FFA000</color>
-    <color name="accent">#EF5350</color>
+    <color name="colorPrimary">#FFC107</color>
+    <color name="colorPrimaryDark">#FFA000</color>
+    <color name="colorAccent">#EF5350</color>
     <color name="transparent_accent">#BFEF5350</color>
     <color name="white">#ffffff</color>
     <color name="red">#cc0000</color>

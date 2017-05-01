@@ -112,11 +112,11 @@ public class SignUpActivity extends MyActionBarActivity
             badInput = true;
         }
         if (!badInput){
-            SignUpUtils.checkUserWithServer(SignUpActivity.this, username, password, signUpWithGoogle, null);
+            SignUpUtils.checkGoogleUserWithServer(SignUpActivity.this, username, password, signUpWithGoogle, null);
         }
     }
 
-//    private void checkUserWithServer(final String username, final String password)
+//    private void checkGoogleUserWithServer(final String username, final String password)
 //    {
 //        String url = AppConstants.SERVER_URL + AppConstants.SIGN_UP_URL;
 //        //String url = "http://10.0.0.5:3000/signup";
@@ -135,7 +135,7 @@ public class SignUpActivity extends MyActionBarActivity
 //
 //                        @Override
 //                        public void onErrorResponse(VolleyError error) {
-//                            System.out.println("error response on checkUserWithServer()");
+//                            System.out.println("error response on checkGoogleUserWithServer()");
 //                        }
 //                    });
 //            MainActivity.addRequestToQueue(jsObjRequest);

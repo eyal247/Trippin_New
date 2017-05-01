@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.trippin.androidtrippin.trippin.NewTripForm;
 import com.trippin.androidtrippin.trippin.MyActionBarActivity;
 import com.trippin.androidtrippin.R;
@@ -46,6 +48,7 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
     private Fragment currFragment;
     public static FragmentManager fragmentManager;
     public Boolean isGoogleSignIn;
+    public Boolean isFacebookSignIn;
     private static GoogleApiClient mGoogleApiClient;
     private boolean signOut;
 
@@ -62,6 +65,7 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
         SaveSharedPreference.setCurrTripID(getApplicationContext(), "");
         username = SaveSharedPreference.getUserName(getApplicationContext());
         isGoogleSignIn = (SaveSharedPreference.getIsGoogleSignIn(getApplicationContext()));
+        isFacebookSignIn = (SaveSharedPreference.getIsFacebookSignedIn(getApplicationContext()));
         createNavigationDrawer();
         fragmentManager = getSupportFragmentManager();
         showHomeFragment(AppConstants.NOT_FOUND);
@@ -360,12 +364,17 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
         if(isGoogleSignIn) {
             signOut = true;
             onSignOutClicked();
+            isGoogleSignIn = false;
 //            mGoogleApiClient = buildGoogleApiClient();
 //            AppController.getInstance().setmGoogleApiClient(mGoogleApiClient);
 //
 //            AppController.getInstance().getmGoogleApiClient().connect();
         }
-
+        else if (isFacebookSignIn) {
+            signOut = true;
+            isFacebookSignIn = false;
+            LoginManager.getInstance().logOut();
+        }
         startActivity(intent);
     }
 
@@ -424,11 +433,19 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
 
     private void onSignOutClicked()
     {
-        Plus.AccountApi.clearDefaultAccount(AppController.getInstance().getmGoogleApiClient());
-        revokeAccess();
-        SaveSharedPreference.setUserName(getApplicationContext(), "");
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("googleLogout", true);
+        if(mGoogleApiClient != null && mGoogleApiClient.isConnected() || SaveSharedPreference.getIsGoogleSignIn(getApplicationContext())) {
+            Plus.AccountApi.clearDefaultAccount(AppController.getInstance().getmGoogleApiClient());
+            revokeAccess();
+            SaveSharedPreference.setIsGoogleSignIn(getApplicationContext(), false);
+            SaveSharedPreference.setUserName(getApplicationContext(), "");
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("googleLogout", true);
+        }
+        if(isFacebookSignIn) {
+            LoginManager.getInstance().logOut();
+            isFacebookSignIn = false;
+            SaveSharedPreference.setIsFacebookSignIn(getApplicationContext(), false);
+        }
     }
 
     protected void revokeAccess()

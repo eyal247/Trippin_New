@@ -88,7 +88,7 @@ public class SimilarTripsListArrayAdapter extends ArrayAdapter<Trip>
     private void setRatingAsterisksColor()
     {
         LayerDrawable stars = (LayerDrawable) similarTripRatingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(context.getResources().getColor(R.color.accent), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(2).setColorFilter(context.getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
     }
 
     private String getTripperString(String username)

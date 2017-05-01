@@ -227,7 +227,7 @@ public class PlaceDetailsFragment extends Fragment implements OnGooglePlaceLoadL
             else {
                 tripPlaceButton.setVisibility(View.VISIBLE);
                 tripPlaceButton.setClickable(true);
-                tripPlaceButton.setBackgroundColor(getResources().getColor(R.color.accent));
+                tripPlaceButton.setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 tripPlaceButton.setText("Delete From Trip");
             }
         }

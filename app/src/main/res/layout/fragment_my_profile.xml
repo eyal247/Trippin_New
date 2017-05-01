@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/profile_fragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".fragments.MyProfileFragment">
 
 
     <ScrollView
@@ -19,7 +20,7 @@
         <FrameLayout
             android:id="@+id/viewA"
             android:layout_width="match_parent"
-            android:layout_height="216dp"
+            android:layout_height="270dp"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -49,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Fname Lname"
+                android:text="Your full name"
                 android:id="@+id/profile_fullname_ET"
                 android:layout_alignParentTop="true"
                 android:editable="false"
@@ -76,7 +77,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Country:"
                 android:id="@+id/profile_country_title"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="45dp"
                 android:layout_marginLeft="20dp"
                 android:visibility="invisible"
                 android:textColor="@color/black"
@@ -94,7 +95,8 @@
                 android:layout_marginTop="20dp"
                 android:visibility="invisible"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_alignLeft="@+id/profile_country_title" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -107,7 +109,8 @@
                 android:layout_marginTop="20dp"
                 android:visibility="invisible"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_alignLeft="@+id/age_TV" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -120,7 +123,8 @@
                 android:layout_marginTop="20dp"
                 android:visibility="invisible"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_alignLeft="@+id/profile_contributions_TV" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -131,9 +135,11 @@
                 android:layout_below="@+id/moto_ET"
                 android:layout_alignStart="@+id/profile_moto_TV"
                 android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:visibility="invisible"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_alignLeft="@+id/profile_moto_TV" />
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -141,7 +147,8 @@
                 android:id="@+id/profile_country_spinner"
                 android:layout_alignBottom="@+id/profile_country_title"
                 android:layout_toEndOf="@+id/profile_country_title"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                android:layout_toRightOf="@+id/profile_country_title" />
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -149,7 +156,8 @@
                 android:id="@+id/profile_age_spinner"
                 android:layout_alignBottom="@+id/age_TV"
                 android:layout_toEndOf="@+id/age_TV"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                android:layout_toRightOf="@+id/age_TV" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -159,7 +167,8 @@
                 android:layout_above="@+id/profile_moto_TV"
                 android:layout_toEndOf="@+id/profile_contributions_TV"
                 android:layout_marginLeft="5dp"
-                android:textColor="@color/list_item_dark_gray"/>
+                android:textColor="@color/list_item_dark_gray"
+                android:layout_toRightOf="@+id/profile_contributions_TV" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -171,7 +180,8 @@
                 android:layout_alignTop="@+id/profile_moto_TV"
                 android:layout_toEndOf="@+id/profile_moto_TV"
                 android:layout_marginLeft="5dp"
-                android:textColor="@color/list_item_dark_gray"/>
+                android:textColor="@color/list_item_dark_gray"
+                android:layout_toRightOf="@+id/profile_moto_TV" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -182,7 +192,8 @@
                 android:layout_toEndOf="@+id/date_joined_title_TV"
                 android:layout_marginLeft="5dp"
                 android:layout_below="@+id/moto_ET"
-                android:textColor="@color/list_item_dark_gray"/>
+                android:textColor="@color/list_item_dark_gray"
+                android:layout_toRightOf="@+id/date_joined_title_TV" />
         </RelativeLayout>
 
 

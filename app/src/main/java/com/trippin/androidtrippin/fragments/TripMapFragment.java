@@ -9,6 +9,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -190,6 +191,7 @@ public class TripMapFragment extends Fragment implements ClusterManager.OnCluste
             mapSettings = googleMap.getUiSettings();
             googleMap.setMyLocationEnabled(true); //todo: get permission from user if target SDK is changed back to >23
             googleMap.setPadding(0, 0, 0, 140);
+
             mapSettings.setZoomControlsEnabled(true);
 
             mapSettings.setScrollGesturesEnabled(true);
@@ -861,7 +863,7 @@ public class TripMapFragment extends Fragment implements ClusterManager.OnCluste
         mRatingBar = (RatingBar)rateDialog.findViewById(R.id.dialog_ratingbar);
 
         LayerDrawable stars = (LayerDrawable) mRatingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(getResources().getColor(R.color.accent), PorterDuff.Mode.SRC_ATOP);
+        stars.getDrawable(2).setColorFilter(getResources().getColor(R.color.colorAccent), PorterDuff.Mode.SRC_ATOP);
 
         rateButton = (Button) rateDialog.findViewById(R.id.rank_dialog_button);
         rateButton.setOnClickListener(new View.OnClickListener() {

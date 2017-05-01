@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/similar_trips_main_layout"
-                tools:context="com.trippin.androidtrippin.SimilarTripsActivity">
+                tools:context="com.trippin.androidtrippin.trippin.SimilarTripsActivity">
 
     <ListView
         android:id="@+id/similar_trips_list_view"

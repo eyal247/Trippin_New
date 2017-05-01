@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/settings_form_main_layout"
-                tools:context="com.trippin.androidtrippin.TripSettingsActivity"
+                tools:context="com.trippin.androidtrippin.trippin.TripSettingsActivity"
                 android:background="@color/white">
 
     <ScrollView

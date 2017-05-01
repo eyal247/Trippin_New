@@ -358,7 +358,7 @@ public class NoteFragment extends Fragment
             mRect = new Rect();
             mPaint = new Paint();
             mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-            mPaint.setColor(getResources().getColor(R.color.primary_dark));
+            mPaint.setColor(getResources().getColor(R.color.colorPrimary));
         }
 
         @Override

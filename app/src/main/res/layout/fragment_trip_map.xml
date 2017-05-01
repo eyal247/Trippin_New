@@ -9,7 +9,7 @@
                     android:id="@+id/plan_trip_relative_layout_frag"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/primary"
+                    android:background="@color/colorPrimary"
                     tools:context="com.trippin.androidtrippin.trippin.PlanTripActivity">
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,15 +33,15 @@
         android:paddingLeft="5dp"
         android:maxLines="1"
         android:completionThreshold="1"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="80dp"/>
 
     <Button
         android:textAllCaps="false"
         android:alpha="0.85"
         android:id="@+id/nearby_places_button_map_frag"
-        android:background="@color/primary"
+        android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:layout_width="160dp"
@@ -50,22 +50,23 @@
         android:layout_height="35dp"
         android:layout_marginLeft="15dp"
         android:layout_above="@+id/tableLayout"
-        android:layout_marginRight="10dp"
-        android:layout_alignRight="@+id/actv_places"/>
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@+id/similar_trips_button_frag"
+        android:layout_alignParentRight="true"/>
 
     <Button
         android:textAllCaps="false"
         android:text="@string/similar_trips_button_text"
         android:alpha="0.85"
         android:id="@+id/similar_trips_button_frag"
-        android:background="@color/primary"
+        android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:textStyle="normal"
         android:textSize="16sp"
         android:layout_width="160dp"
         android:layout_height="35dp"
         android:layout_column="2"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_above="@+id/tableLayout"
         android:layout_alignStart="@+id/actv_places"
         android:layout_alignLeft="@+id/actv_places" />

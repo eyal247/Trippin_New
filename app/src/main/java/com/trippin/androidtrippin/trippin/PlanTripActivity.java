@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.login.LoginManager;
 import com.trippin.androidtrippin.R;
 import com.trippin.androidtrippin.adapters.NavigationDrawerAdapter;
 import com.trippin.androidtrippin.fragments.TripMapFragment;
@@ -66,6 +67,7 @@ public class PlanTripActivity extends MyActionBarActivity implements OnFragmentI
     private static GoogleApiClient mGoogleApiClient;
     private boolean signOut;
     public Boolean isGoogleSignIn;
+    public Boolean isFacebookSignIn;
     private RelativeLayout planTripMainLayout;
 
     @Override
@@ -91,6 +93,7 @@ public class PlanTripActivity extends MyActionBarActivity implements OnFragmentI
 
         createNavigationDrawer();
         isGoogleSignIn = (SaveSharedPreference.getIsGoogleSignIn(getApplicationContext()));
+        isFacebookSignIn = (SaveSharedPreference.getIsFacebookSignedIn(getApplicationContext()));
 
         fragmentManager = getSupportFragmentManager();
         myIntent = getIntent();
@@ -104,6 +107,10 @@ public class PlanTripActivity extends MyActionBarActivity implements OnFragmentI
             signOut = false;
             AppController.getInstance().getmGoogleApiClient().connect();
             mGoogleApiClient = AppController.getInstance().getmGoogleApiClient();
+        }
+        if(isFacebookSignIn)
+        {
+            signOut = false;
         }
     }
 
@@ -808,6 +815,9 @@ public class PlanTripActivity extends MyActionBarActivity implements OnFragmentI
         if(isGoogleSignIn) {
             signOut = true;
             onSignOutClicked();
+        } else if(isFacebookSignIn) {
+            signOut = true;
+            LoginManager.getInstance().logOut();
         }
 
         startActivity(mainActivityIntent);

@@ -9,6 +9,7 @@ public class SaveSharedPreference
     static final String PREF_USER_NAME = "";
     static final String TRIP_ID = "tripID";
     static final String IS_GOOGLE_SIGN_IN = "isGoogleSignIN";
+    static final String IS_FB_SIGN_IN = "isFacebookSignIN";
 
     static SharedPreferences getSharedPreferences(Context ctx)
     {
@@ -32,6 +33,18 @@ public class SaveSharedPreference
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.putBoolean(IS_GOOGLE_SIGN_IN, isGoogleSignIn);
         editor.commit();
+    }
+
+    public static void setIsFacebookSignIn(Context ctx, Boolean isFacebookSignIn)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putBoolean(IS_FB_SIGN_IN, isFacebookSignIn);
+        editor.commit();
+    }
+
+    public static Boolean getIsFacebookSignedIn(Context ctx)
+    {
+        return getSharedPreferences(ctx).getBoolean(IS_FB_SIGN_IN, false);
     }
 
     public static Boolean getIsGoogleSignIn(Context ctx)

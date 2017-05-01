@@ -33,6 +33,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.Profile;
 import com.trippin.androidtrippin.model.AppConstants;
 import com.trippin.androidtrippin.model.AppUtils;
 import com.trippin.androidtrippin.model.OnFragmentInteractionListener;
@@ -48,6 +49,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -279,7 +283,9 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
             if(userChangedPicture == true) {
                 updatedInfoJSON.put("encodedProfilePic", AppUtils.bitMapToString(userImageBitmap));
                 updatedInfoJSON.put("isGoogleProfilePic", false);
+                updatedInfoJSON.put("isFacebookProcilePic", false);
                 user.setIsGoogleProfilePic(false);
+                user.setIsFacebookProfilePic(false);
             }
             else {
                 updatedInfoJSON.put("encodedProfilePic", AppConstants.EMPTY_STRING);
@@ -411,8 +417,11 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
         lastCountry = countrySpinner.getSelectedItem().toString();
         lastAge = (Integer)ageSpinner.getSelectedItem();
         lastMoto = motoET.getText().toString();
-        lastProfilePic = ((BitmapDrawable)profilePictureIV.getDrawable()).getBitmap();
-        lastProfilePic = AppUtils.resizeBitmap(lastProfilePic, AppConstants.IMAGE_MAX_SIZE);
+        if(profilePictureIV.getDrawable() != null) {
+            lastProfilePic = ((BitmapDrawable) profilePictureIV.getDrawable()).getBitmap();
+            if(lastProfilePic!=null)
+                lastProfilePic = AppUtils.resizeBitmap(lastProfilePic, AppConstants.IMAGE_MAX_SIZE);
+        }
 
     }
 
@@ -522,6 +531,7 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
         {
             mainView.findViewById(R.id.refresh_profile_IB).setVisibility(View.GONE);
             mainView.findViewById(R.id.loading_panel_profile).setVisibility(View.GONE);
+            user = new User();
             user.parseDetailsFromJSON(response);
             showUIComponents();
             appendInfoToTextViews();
@@ -531,7 +541,12 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
     private void showUIComponents()
     {
         getActivity().findViewById(R.id.edit_profile_FAB).setVisibility(View.VISIBLE);
+
         getActivity().findViewById(R.id.profile_fullname_ET).setVisibility(View.VISIBLE);
+        if(!user.getUserHasInfo()) {
+            fullNameET.setTextColor(getResources().getColor(R.color.black));
+        }
+
         getActivity().findViewById(R.id.age_TV).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.profile_country_title).setVisibility(View.VISIBLE);
         getActivity().findViewById(R.id.profile_age_spinner).setVisibility(View.VISIBLE);
@@ -545,42 +560,100 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
     {
 //        fullNameET.setText(user.getFname().substring(0, 1).toUpperCase() + user.getFname().substring(1)
 //                + " " + user.getLname().toUpperCase().substring(0, 1) + ".");
-        setProfilePic();
-        fullNameET.setText(user.getFname().substring(0, 1).toUpperCase() + user.getFname().substring(1)
-                + " " + user.getLname().substring(0, 1).toUpperCase() + user.getLname().substring(1));
+        if(user.getUserHasInfo()) {
+            setProfilePic();
+            fullNameET.setText(user.getFname().substring(0, 1).toUpperCase() + user.getFname().substring(1)
+                    + " " + user.getLname().substring(0, 1).toUpperCase() + user.getLname().substring(1));
 
-        ageSpinner.setSelection(agesAdapter.getPosition(user.getAgeNumber()));
-        countrySpinner.setSelection(countriesAdapter.getPosition(user.getCountry()));
-        dateJoinedTrippinTV.setText(user.getDateJoinedStr());
-        motoET.setText(user.getMoto());
-        contributionsTV.setText(Integer.toString(user.getNumOfTrips()));
+            ageSpinner.setSelection(agesAdapter.getPosition(user.getAgeNumber()));
+            setCountrySpinner();
+            dateJoinedTrippinTV.setText(user.getDateJoinedStr());
+            motoET.setText(user.getMoto());
+            contributionsTV.setText(Integer.toString(user.getNumOfTrips()));
+        }
+    }
+
+    private void setCountrySpinner() {
+        if(user.getCountry().equals(AppConstants.EMPTY_STRING))
+            countrySpinner.setSelection(countriesAdapter.getPosition("United States"));
+        else
+            countrySpinner.setSelection(countriesAdapter.getPosition(user.getCountry()));
     }
 
     private void setProfilePic()
     {
         if(user.isGoogleProfilePic())
             setUpGoogleImageFromURL();
+        else if(user.isFBProfilePic())
+            setUpFBImageFromURL(getPictureURL());
         else if(!user.isGoogleProfilePic())
             setUpNormalProfilePic();
         else
             profilePictureIV.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.no_user_logo));
     }
 
+    private String getPictureURL() {
+        return user.getEncodedProfilePic();
+    }
+
+    private void setUpFBImageFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap FacebookBitmap = BitmapFactory.decodeStream(input);
+            profilePictureIV.setImageBitmap(FacebookBitmap);
+        } catch (IOException e) {
+            // Log exception
+            setUpNormalProfilePic();
+        }
+
+    }
+
     private void setUpGoogleImageFromURL()
     {
         Bitmap googlePictureBitmap;
         String googleUserUrl = user.getEncodedProfilePic();
-        int urlLength = googleUserUrl.length();
-        String newUrl = googleUserUrl.substring(0, urlLength - 2);
-        StringBuilder finalUrl = new StringBuilder().append(newUrl).append("250");
+        String subURL = googleUserUrl.substring(0, 13);
+        if(subURL.equals("https://graph")) {
+            String fb_url = getFBImageURL(Profile.getCurrentProfile().getId());
+            new GetProfileImage().execute(fb_url);
 
-        if(finalUrl.toString() == null || finalUrl.toString().equals(AppConstants.EMPTY_STRING)){
-            googlePictureBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.no_user_logo);
-            profilePictureIV.setImageBitmap(googlePictureBitmap);
         }
-        else
-            new GetProfileImage().execute(finalUrl.toString());
+        else {
+            int urlLength = googleUserUrl.length();
+            String newUrl = googleUserUrl.substring(0, urlLength - 2);
+            StringBuilder finalUrl = new StringBuilder().append(newUrl).append("250");
+
+            if (finalUrl.toString() == null || finalUrl.toString().equals(AppConstants.EMPTY_STRING)) {
+                googlePictureBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.no_user_logo);
+                profilePictureIV.setImageBitmap(googlePictureBitmap);
+            } else
+                new GetProfileImage().execute(finalUrl.toString());
             //googlePictureBitmap = AppUtils.fromUrlToBitmap(user.getEncodedProfilePic());
+        }
+    }
+
+//    private Bitmap getFacebookProfilePicture(String userID){
+//        Bitmap bm = null;
+//        URL imageURL = null;
+//        try {
+//            imageURL = new URL("https://graph.facebook.com/" + userID + "/picture?type=large");
+//            bm = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+//
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return bm;
+//    }
+
+    private String getFBImageURL(String userID) {
+           return "https://graph.facebook.com/" + userID + "/picture?type=large";
     }
 
     private void setUpNormalProfilePic()
@@ -654,11 +727,16 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
 
     private void setCountriesSpinnerAdapter()
     {
-        String defaultCountry = user.getCountry();
-
+        String defaultCountry = null;
         countriesAdapter = new ArrayAdapter<>(getActivity(), R.layout.my_spinner_item, countriesList);
         countrySpinner.setAdapter(countriesAdapter);
-        countrySpinner.setSelection(countriesAdapter.getPosition(defaultCountry));
+        if(user.getUserHasInfo()) {
+            defaultCountry = user.getCountry();
+            countrySpinner.setSelection(countriesAdapter.getPosition(defaultCountry));
+        }
+        else {
+            countrySpinner.setSelection(countriesAdapter.getPosition("United States"));
+        }
     }
 
     private void initAgesOptionsArray()

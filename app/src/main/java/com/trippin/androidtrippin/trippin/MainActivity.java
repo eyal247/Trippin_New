@@ -5,15 +5,19 @@ import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +35,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.daimajia.androidanimations.library.Techniques;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.internal.CallbackManagerImpl;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.SignInButton;
@@ -40,20 +54,22 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.People;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
-import com.trippin.androidtrippin.trippin.AppController;
-import com.trippin.androidtrippin.trippin.HomeActivity;
-import com.trippin.androidtrippin.trippin.MyActionBarActivity;
 import com.trippin.androidtrippin.R;
-import com.trippin.androidtrippin.trippin.SignUpActivity;
 import com.trippin.androidtrippin.model.AppConstants;
 import com.trippin.androidtrippin.model.AppUtils;
 import com.trippin.androidtrippin.model.SaveSharedPreference;
 import com.trippin.androidtrippin.model.SignUpUtils;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
 
 //import com.facebook.CallbackManager;
 //
@@ -77,6 +93,7 @@ public class MainActivity extends MyActionBarActivity implements
     private static final int STATE_IN_PROGRESS = 2; //started an intent to resolve an error
     private static final int STATE_GOOGLE_SIGN_OUT = 3; //started an intent to resolve an error
     private static final int RC_SIGN_IN = 0;
+    private static final int FB_LOGIN = 4;
 
     private static final String SAVED_PROGRESS = "sign_in_progress";
     private static GoogleApiClient mGoogleApiClient;
@@ -86,15 +103,16 @@ public class MainActivity extends MyActionBarActivity implements
     private boolean mRequestServerAuthCode = false;
     private boolean mServerHasToken = true;
     private SignInButton googleLoginButton;
-    //private LoginButton facebookLoginButton;
-    //private CallbackManager callbackManager;
     private Button loginButton;
+    private LoginButton FBLoginButton;
     private TextView signUpTv;
     private TextView forgotPasswordTV;
     private RelativeLayout mainActivityLayout;
     private Bitmap googlePictureBitmap;
     private ConnectionResult mConnectionResult;
     private boolean mResolveOnFail;
+    private CallbackManager callbackManager;
+    private LoginManager loginManager;
 
 
     @Override
@@ -109,8 +127,7 @@ public class MainActivity extends MyActionBarActivity implements
     {
         super.onCreate(savedInstanceState);
 
-        //FacebookSdk.sdkInitialize(getApplicationContext());
-        //callbackManager = CallbackManager.Factory.create();
+        callbackManager = CallbackManager.Factory.create();
         checkIfLoggedIn();
         mGoogleApiClient = buildGoogleApiClient();
         AppController.getInstance().setmGoogleApiClient(mGoogleApiClient);
@@ -130,6 +147,7 @@ public class MainActivity extends MyActionBarActivity implements
         googleLoginButton = (SignInButton) findViewById(R.id.google_sign_in_button);
         googleLoginButton.setSize(SignInButton.SIZE_WIDE);
         loginButton = (Button) findViewById(R.id.loginButton);
+        FBLoginButton = (LoginButton)findViewById(R.id.fb_login_button);
         signUpTv = (TextView) findViewById(R.id.signUpTextView);
         forgotPasswordTV = (TextView) findViewById(R.id.forgot_password_TV);
         usernameTB = (EditText) findViewById(R.id.usernameTB);
@@ -146,6 +164,7 @@ public class MainActivity extends MyActionBarActivity implements
         loginButton.setOnClickListener(this);
         signUpTv.setOnClickListener(this);
         googleLoginButton.setOnClickListener(this);
+        FBLoginButton.setOnClickListener(this);
         mainActivityLayout.setOnClickListener(this);
         forgotPasswordTV.setOnClickListener(this);
         agreetToTermsTV.setOnClickListener(this);
@@ -163,9 +182,9 @@ public class MainActivity extends MyActionBarActivity implements
             case R.id.signUpTextView:
                 handleSignUpNewUser();
                 break;
-//            case R.id.facebook_login_button:
-//                handleFacebookLogin();
-//                break;
+            case R.id.fb_login_button:
+                handleFacebookLogin();
+                break;
             case R.id.forgot_password_TV:
                 handleForgotPassword();
                 break;
@@ -205,8 +224,65 @@ public class MainActivity extends MyActionBarActivity implements
 
     private void handleFacebookLogin()
     {
-        //TODO
+        setPermissions();
+        registerCallback();
     }
+
+//    public static void showHashKey(Context context) {
+//        try {
+//            PackageInfo info = context.getPackageManager().getPackageInfo(
+//                    "com.trippin.androidtrippin", PackageManager.GET_SIGNATURES);
+//            for (android.content.pm.Signature signature : info.signatures) {
+//                MessageDigest md = MessageDigest.getInstance("SHA");
+//                md.update(signature.toByteArray());
+//                Log.i("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+//            }
+//        } catch (PackageManager.NameNotFoundException e) {
+//        } catch (NoSuchAlgorithmException e) {
+//        }
+//    }
+
+    private void setPermissions() {
+        FBLoginButton.setReadPermissions("email", "public_profile");
+    }
+
+    private void registerCallback() {
+        FBLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                final boolean signUpWithFacebook = true;
+                GraphRequest graphRequest   =   GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
+                {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response)
+                    {
+                        Log.d("JSON", ""+response.getJSONObject().toString());
+                        String email = object.optString("email");
+                        String id = object.optString("id");
+                        String location = object.optString("location");
+                        mSignInProgress = FB_LOGIN;
+                        SignUpUtils.checkFBUserWithServer(MainActivity.this, email, id, location, signUpWithFacebook, Profile.getCurrentProfile());
+                    }
+                });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,first_name,last_name,email,location");
+                graphRequest.setParameters(parameters);
+                graphRequest.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
+    }
+
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void handleSignUpNewUser()
@@ -367,7 +443,9 @@ public class MainActivity extends MyActionBarActivity implements
                 AppController.getInstance().setmGoogleApiClient(mGoogleApiClient);
                 mSignInProgress = STATE_GOOGLE_SIGN_IN;
             }
-
+            else if (SaveSharedPreference.getIsFacebookSignedIn(getApplicationContext())) {
+                mSignInProgress = FB_LOGIN;
+            }
             switchToHomeActivity(SaveSharedPreference.getUserName(getApplicationContext()));
         }
     }
@@ -376,14 +454,21 @@ public class MainActivity extends MyActionBarActivity implements
     {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("username", username);
+        setSignInState();
+        SaveSharedPreference.setUserName(getApplicationContext(), username);
+        startActivity(intent);
+    }
+
+    private void setSignInState() {
         if(mSignInProgress == STATE_GOOGLE_SIGN_IN) {
             SaveSharedPreference.setIsGoogleSignIn(getApplicationContext(), true);
-        } else {
+            SaveSharedPreference.setIsFacebookSignIn(getApplicationContext(), false);
+        }
+        if(mSignInProgress == FB_LOGIN) {
+            SaveSharedPreference.setIsFacebookSignIn(getApplicationContext(), true);
             SaveSharedPreference.setIsGoogleSignIn(getApplicationContext(), false);
         }
 
-        SaveSharedPreference.setUserName(getApplicationContext(), username);
-        startActivity(intent);
     }
 
     public static void addRequestToQueue(Request request)
@@ -577,7 +662,7 @@ public class MainActivity extends MyActionBarActivity implements
                 Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
                 findViewById(R.id.main_activity_content_rl).setVisibility(View.INVISIBLE);
                 findViewById(R.id.loading_panel_main_activity).setVisibility(View.VISIBLE);
-                SignUpUtils.checkUserWithServer(MainActivity.this, email, null, signUpWithGoogle, currentPerson);
+                SignUpUtils.checkGoogleUserWithServer(MainActivity.this, email, null, signUpWithGoogle, currentPerson);
             }
             else{
                 onSignOutClicked();
@@ -695,28 +780,31 @@ public class MainActivity extends MyActionBarActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
-        switch (requestCode) {
-            case RC_SIGN_IN:
-                if (resultCode == RESULT_OK) {
-                    // If the error resolution was successful we should continue
-                    // processing errors.
-                    mResolveOnFail = true;
-                    mSignInProgress = STATE_GOOGLE_SIGN_IN;
-                } else {
-                    // If the error resolution was not successful or the user canceled,
-                    // we should stop processing errors.
-                    mResolveOnFail = false;
-                    mSignInProgress = STATE_DEFAULT;
-                }
+        if(requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                // If the error resolution was successful we should continue
+                // processing errors.
+                mResolveOnFail = true;
+                mSignInProgress = STATE_GOOGLE_SIGN_IN;
+            } else {
+                // If the error resolution was not successful or the user canceled,
+                // we should stop processing errors.
+                mResolveOnFail = false;
+                mSignInProgress = STATE_DEFAULT;
+            }
 
-                if (!AppController.getInstance().getmGoogleApiClient().isConnecting()) {
-                    // If Google Play services resolved the issue with a dialog then
-                    // onStart is not called so we need to re-attempt connection here.
-                    mSignInProgress = STATE_GOOGLE_SIGN_IN;
-                    AppController.getInstance().getmGoogleApiClient().connect();
-                }
-                break;
+            if (!AppController.getInstance().getmGoogleApiClient().isConnecting()) {
+                // If Google Play services resolved the issue with a dialog then
+                // onStart is not called so we need to re-attempt connection here.
+                mSignInProgress = STATE_GOOGLE_SIGN_IN;
+                AppController.getInstance().getmGoogleApiClient().connect();
+            }
         }
+        else if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+
+
     }
 
 //    @Override

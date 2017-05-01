@@ -134,7 +134,7 @@ public class AppUtils
 
         View sbView = snackbar.getView();
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(ContextCompat.getColor(context, R.color.accent));
+        textView.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         textView.setGravity(Gravity.CENTER);
         snackbar.show();
     }
@@ -151,12 +151,12 @@ public class AppUtils
                 });
 
         // Changing message text color
-        snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.primary));
+        snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
 
         // Changing action button text color
         View sbView = snackbar.getView();
         TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-        textView.setTextColor(ContextCompat.getColor(context, R.color.accent));
+        textView.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         textView.setGravity(Gravity.CENTER);
         snackbar.show();
     }

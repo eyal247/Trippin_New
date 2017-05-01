@@ -9,6 +9,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.trippin.androidtrippin.model.AppUtils;
 import com.trippin.androidtrippin.model.LruBitmapCache;
@@ -46,6 +48,8 @@ public class AppController extends Application
     public void onCreate()
     {
         super.onCreate();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         mInstance = this;
         excpFile = new File(getExternalFilesDir(null), "log.txt" );
         exceptionHandler = new MyUncaughtExceptionHandler();

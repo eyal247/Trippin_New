@@ -61,4 +61,6 @@ dependencies {
     compile ('com.github.nkzawa:socket.io-client:0.4.1'){
         exclude group: 'org.json', module: 'json'
     }
+
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
