@@ -5,5 +5,5 @@ package com.trippin.androidtrippin.model;
  */
 
 public class GoogleServerKey {
-    public static String GOOGLE_SERVER_KEY = "AIzaSyAHVhL7VhaZ4BG-HfILxUsqGZqafzCv3Ps";
+    public static String GOOGLE_SERVER_KEY = "";
 }

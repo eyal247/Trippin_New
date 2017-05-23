@@ -168,7 +168,6 @@ public class MainActivity extends MyActionBarActivity implements
         mainActivityLayout.setOnClickListener(this);
         forgotPasswordTV.setOnClickListener(this);
         agreetToTermsTV.setOnClickListener(this);
-        //facebookLoginButton.setOnClickListener(this);
     }
 
     @Override
@@ -261,6 +260,7 @@ public class MainActivity extends MyActionBarActivity implements
                         String id = object.optString("id");
                         String location = object.optString("location");
                         mSignInProgress = FB_LOGIN;
+                        System.out.println(FacebookSdk.getApplicationSignature(getApplicationContext()));
                         SignUpUtils.checkFBUserWithServer(MainActivity.this, email, id, location, signUpWithFacebook, Profile.getCurrentProfile());
                     }
                 });

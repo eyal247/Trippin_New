@@ -18,7 +18,7 @@ public class AppConstants
     public static final String ADD_PLACE_TO_TRIP = "/addTripPlace";
     public static final String SEND_PLACE_IMAGE = "/updatePlaceImage";
     public static final String GET_PLACE_IMAGE = "/getPlaceImage";
-    public static final String SERVER_URL = "http://default-environment.bvprxj2p3x.us-east-1.elasticbeanstalk.com"; //"http://ec2-52-10-214-138.us-west-2.compute.amazonaws.com:3000";
+    public static final String SERVER_URL = "";
     public static final String CHECK_IF_USER_EXISTS_URL = "/checkIfUserExists";
     public static final String SIGN_UP_URL = "/signUp";
     public final static String SIGN_UP_USERNAME = "com.example.eyalengel.trippin.user_email";

@@ -2,6 +2,7 @@ package com.trippin.androidtrippin.trippin;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -74,6 +75,7 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
             AppController.getInstance().getmGoogleApiClient().connect();
             mGoogleApiClient = AppController.getInstance().getmGoogleApiClient();
         }
+        System.out.println("IN HOME ACTIVITY onCreate()");
     }
 
     @Override
@@ -81,7 +83,7 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
     {
         //if(getSupportFragmentManager().getFragment(outState, "homeFragment") != null)
             getSupportFragmentManager().putFragment(outState, "fragment", currFragment);
-
+        System.out.println("In onSaveInstanceState in HOME ACTIVITY");
         super.onSaveInstanceState(outState);
     }
 
