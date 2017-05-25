@@ -37,39 +37,45 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="80dp"/>
 
-    <Button
-        android:textAllCaps="false"
-        android:alpha="0.85"
-        android:id="@+id/nearby_places_button_map_frag"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:layout_width="160dp"
-        android:textStyle="normal"
-        android:text="@string/nearby_places_button_text"
-        android:layout_height="35dp"
-        android:layout_marginLeft="15dp"
-        android:layout_above="@+id/tableLayout"
-        android:layout_marginRight="20dp"
-        android:layout_toLeftOf="@+id/similar_trips_button_frag"
-        android:layout_alignParentRight="true"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_above="@+id/tableLayout">
 
     <Button
+        android:id="@+id/similar_trips_button_frag"
+        android:layout_width="140dp"
+        android:layout_height="35dp"
         android:textAllCaps="false"
         android:text="@string/similar_trips_button_text"
         android:alpha="0.85"
-        android:id="@+id/similar_trips_button_frag"
         android:background="@color/colorPrimary"
         android:textColor="@color/white"
         android:textStyle="normal"
         android:textSize="16sp"
-        android:layout_width="160dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/nearby_places_button_map_frag"
         android:layout_height="35dp"
-        android:layout_column="2"
-        android:layout_marginLeft="20dp"
-        android:layout_above="@+id/tableLayout"
-        android:layout_alignStart="@+id/actv_places"
-        android:layout_alignLeft="@+id/actv_places" />
+        android:layout_width="150dp"
+        android:alpha="0.85"
+        android:textAllCaps="false"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:text="@string/nearby_places_button_text"
+        android:layout_gravity="bottom"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>
 
     <TableLayout
         android:layout_width="match_parent"
@@ -100,11 +106,9 @@
         android:textColor="@color/white"
         android:background="@color/transparent_accent"
         android:gravity="center_vertical|center_horizontal"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
 

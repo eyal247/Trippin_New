@@ -67,9 +67,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
+import java.util.Arrays;
 
 //import com.facebook.CallbackManager;
 //
@@ -227,22 +230,8 @@ public class MainActivity extends MyActionBarActivity implements
         registerCallback();
     }
 
-//    public static void showHashKey(Context context) {
-//        try {
-//            PackageInfo info = context.getPackageManager().getPackageInfo(
-//                    "com.trippin.androidtrippin", PackageManager.GET_SIGNATURES);
-//            for (android.content.pm.Signature signature : info.signatures) {
-//                MessageDigest md = MessageDigest.getInstance("SHA");
-//                md.update(signature.toByteArray());
-//                Log.i("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-//            }
-//        } catch (PackageManager.NameNotFoundException e) {
-//        } catch (NoSuchAlgorithmException e) {
-//        }
-//    }
-
     private void setPermissions() {
-        FBLoginButton.setReadPermissions("email", "public_profile");
+        FBLoginButton.setReadPermissions("public_profile", "email", "user_birthday", "user_friends", "user_location");
     }
 
     private void registerCallback() {
@@ -252,21 +241,34 @@ public class MainActivity extends MyActionBarActivity implements
                 final boolean signUpWithFacebook = true;
                 GraphRequest graphRequest   =   GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
                 {
+                    String email, id, country, birthday;
+                    String location;
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response)
                     {
-                        Log.d("JSON", ""+response.getJSONObject().toString());
-                        String email = object.optString("email");
-                        String id = object.optString("id");
-                        String location = object.optString("location");
+                        Log.e(TAG,object.toString());
+                        Log.e(TAG,response.toString());
+                        try {
+                            id = object.getString("id");
+                            if (object.has("email"))
+                                email = object.getString("email");
+                            if (object.has("birthday"))
+                                birthday = object.getString("birthday");
+                            if (object.has("location")) {
+                                location = object.getJSONObject("location").getString("name");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         mSignInProgress = FB_LOGIN;
                         System.out.println(FacebookSdk.getApplicationSignature(getApplicationContext()));
-                        SignUpUtils.checkFBUserWithServer(MainActivity.this, email, id, location, signUpWithFacebook, Profile.getCurrentProfile());
+                        SignUpUtils.checkFBUserWithServer(MainActivity.this, email, id, location, birthday, signUpWithFacebook, Profile.getCurrentProfile());
                     }
                 });
 
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,first_name,last_name,email,location");
+                parameters.putString("fields", "id,name,first_name,last_name,birthday,email,location,picture.type(large)");
                 graphRequest.setParameters(parameters);
                 graphRequest.executeAsync();
             }
@@ -482,9 +484,6 @@ public class MainActivity extends MyActionBarActivity implements
         String password;
         JSONObject userLoginInfo = new JSONObject();
         String url = AppConstants.SERVER_URL + AppConstants.LOGIN_URL;
-        //String url = "http://192.168.207.56:3000/login";
-//        String url1 = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=500&types=food&name=cruise&key=AIzaSyAQP3QWMrHOpYZytcnXzD8qCxYGVNpHJ6M";
-//        String url2 = "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJrTLr-GyuEmsRBfy61i59si0&key=AIzaSyAQP3QWMrHOpYZytcnXzD8qCxYGVNpHJ6M";
 
         username = usernameTB.getText().toString();
         password = passwordTB.getText().toString();

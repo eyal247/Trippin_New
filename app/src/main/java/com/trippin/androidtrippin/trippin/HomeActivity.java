@@ -376,6 +376,7 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
             signOut = true;
             isFacebookSignIn = false;
             LoginManager.getInstance().logOut();
+            SaveSharedPreference.setIsFacebookSignIn(getApplicationContext(), false);
         }
         startActivity(intent);
     }

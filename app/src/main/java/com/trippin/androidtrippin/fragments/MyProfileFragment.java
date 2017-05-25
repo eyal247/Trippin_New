@@ -84,6 +84,7 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
     private Spinner ageSpinner;
     private TextView dateJoinedTrippinTV;
     private EditText motoET;
+    private EditText fbLocationET;
     private TextView contributionsTV;
     private ImageView profilePictureIV;
     private FloatingActionButton editProfileFAB;
@@ -97,6 +98,7 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
     private String lastCountry;
     private Integer lastAge;
     private String lastMoto;
+    private String lastFBHomeBase;
     private Bitmap lastProfilePic;
     private Button changeProfilePictureButton;
     private boolean inEditMode;
@@ -212,6 +214,7 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
         countrySpinner.setSelection(countriesAdapter.getPosition(lastCountry));
         ageSpinner.setSelection(agesAdapter.getPosition(lastAge));
         motoET.setText(lastMoto);
+        fbLocationET.setText(lastFBHomeBase);
         profilePictureIV.setImageBitmap(lastProfilePic);
 
         disableEdit();
@@ -233,6 +236,7 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
         countrySpinner.setSelection(countrySpinner.getSelectedItemPosition());
         ageSpinner.setSelection((ageSpinner.getSelectedItemPosition()));
         motoET.setText(motoET.getText());
+        fbLocationET.setText(fbLocationET.getText());
         profilePictureIV.buildDrawingCache();
         profilePictureIV.setImageBitmap(profilePictureIV.getDrawingCache());
     }
@@ -277,7 +281,10 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
             updatedInfoJSON.put("fname", user.getFname());
             updatedInfoJSON.put("lname", user.getLname());
             updatedInfoJSON.put("dateJoined", user.getDateJoinedStr());
-            updatedInfoJSON.put("country", countrySpinner.getSelectedItem().toString());
+            if(countrySpinner.getVisibility() == View.VISIBLE)
+                updatedInfoJSON.put("country", countrySpinner.getSelectedItem().toString());
+            if(fbLocationET.getVisibility() == View.VISIBLE)
+                updatedInfoJSON.put("country", fbLocationET.getText().toString());
             updatedInfoJSON.put("moto", motoET.getText().toString());
             updatedInfoJSON.put("age", ageSpinner.getSelectedItem().toString());
             if(userChangedPicture == true) {
@@ -305,12 +312,12 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
             {
                 case AppConstants.RESPONSE_SUCCESS:
                     //handleUserDetailsResponse(response);
-                    AppUtils.showSnackBarMsg("User info updated successfully", ctx, profileCoordinateLayout);
+                    AppUtils.showSnackBarMsg("Profile was updated successfully", ctx, profileCoordinateLayout);
                     //Toast.makeText(ctx, "User info updated successfully", Toast.LENGTH_LONG).show();
                     break;
                 case AppConstants.RESPONSE_FAILURE:
                     //Toast.makeText(ctx, "Update of details failed. Server error.", Toast.LENGTH_LONG).show();
-                    AppUtils.showSnackBarMsg("Update of details failed. Server error.", ctx, profileCoordinateLayout);
+                    AppUtils.showSnackBarMsg("Profile update failed. Server error.", ctx, profileCoordinateLayout);
                     break;
                 default:
                     System.out.println("error on handleSignUpResponse();");
@@ -328,11 +335,14 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
         ageSpinner.setEnabled(false);
         motoET.setEnabled(false);
         motoET.setTextColor(getResources().getColor(R.color.list_item_dark_gray));
+        fbLocationET.setEnabled(false);
+        fbLocationET.setTextColor(getResources().getColor(R.color.list_item_dark_gray));
         dateJoinedTrippinTV.setEnabled(false);
         contributionsTV.setEnabled(false);
         countrySpinner.setBackground(null);
         ageSpinner.setBackground(null);
         motoET.setBackground(null);
+        fbLocationET.setBackground(null);
         saveChangesFAB.setVisibility(View.INVISIBLE);
         saveChangesFAB.setEnabled(false);
         saveChangesFAB.setClickable(false);
@@ -351,9 +361,11 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
 
         fullNameET.setEnabled(true);
         motoET.setTextColor(getResources().getColor(R.color.black));
+        fbLocationET.setTextColor(getResources().getColor(R.color.black));
         countrySpinner.setEnabled(true);
         ageSpinner.setEnabled(true);
         motoET.setEnabled(true);
+        fbLocationET.setEnabled(true);
         countrySpinner.setBackground(originalDrawable);
         ageSpinner.setBackground(originalDrawable);
         //motoET.setBackground(originalDrawable);
@@ -414,9 +426,13 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
 
     private void saveLastProfileInfo()
     {
-        lastCountry = countrySpinner.getSelectedItem().toString();
+        if(countrySpinner.getVisibility() == View.VISIBLE)
+            lastCountry = countrySpinner.getSelectedItem().toString();
+        if(fbLocationET.getVisibility() == View.VISIBLE)
+            lastCountry = fbLocationET.getText().toString();
         lastAge = (Integer)ageSpinner.getSelectedItem();
         lastMoto = motoET.getText().toString();
+        lastFBHomeBase = fbLocationET.getText().toString();
         if(profilePictureIV.getDrawable() != null) {
             lastProfilePic = ((BitmapDrawable) profilePictureIV.getDrawable()).getBitmap();
             if(lastProfilePic!=null)
@@ -430,6 +446,7 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
         fullNameET = (EditText) mainView.findViewById(R.id.profile_fullname_ET);
         countrySpinner = (Spinner)mainView.findViewById(R.id.profile_country_spinner);
         motoET = (EditText) mainView.findViewById(R.id.moto_ET);
+        fbLocationET = (EditText)mainView.findViewById(R.id.fb_location_edittext);
         dateJoinedTrippinTV = (TextView) mainView.findViewById(R.id.profile_dateJoined_tv);
         contributionsTV = (TextView) mainView.findViewById(R.id.contributions_TV);
         profilePictureIV = (ImageView) mainView.findViewById(R.id.profile_picture_IV);
@@ -566,7 +583,10 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
                     + " " + user.getLname().substring(0, 1).toUpperCase() + user.getLname().substring(1));
 
             ageSpinner.setSelection(agesAdapter.getPosition(user.getAgeNumber()));
-            setCountrySpinner();
+            if(countrySpinner.getVisibility() == View.VISIBLE)
+                setCountrySpinner();
+            if(fbLocationET.getVisibility() == View.VISIBLE)
+                fbLocationET.setText(user.getCountry());
             dateJoinedTrippinTV.setText(user.getDateJoinedStr());
             motoET.setText(user.getMoto());
             contributionsTV.setText(Integer.toString(user.getNumOfTrips()));
@@ -574,8 +594,10 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
     }
 
     private void setCountrySpinner() {
-        if(user.getCountry().equals(AppConstants.EMPTY_STRING))
-            countrySpinner.setSelection(countriesAdapter.getPosition("United States"));
+        if(user.getCountry().equals(AppConstants.EMPTY_STRING) || countriesAdapter.getPosition(user.getCountry()) == AppConstants.NOT_FOUND) {
+            countrySpinner.setVisibility(View.GONE);
+            fbLocationET.setVisibility(View.VISIBLE);
+        }
         else
             countrySpinner.setSelection(countriesAdapter.getPosition(user.getCountry()));
     }
@@ -584,8 +606,8 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
     {
         if(user.isGoogleProfilePic())
             setUpGoogleImageFromURL();
-        else if(user.isFBProfilePic())
-            setUpFBImageFromURL(getPictureURL());
+        else if(SaveSharedPreference.getIsFacebookSignedIn(getContext()))
+            setUpGoogleImageFromURL();
         else if(!user.isGoogleProfilePic())
             setUpNormalProfilePic();
         else
@@ -599,17 +621,38 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
     private void setUpFBImageFromURL(String src) {
         try {
             URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap FacebookBitmap = BitmapFactory.decodeStream(input);
-            profilePictureIV.setImageBitmap(FacebookBitmap);
+
+            new AsyncTask<String, Void, InputStream>() {
+                @Override
+                protected InputStream doInBackground(String... params) {
+                    InputStream input = null;
+                    try {
+                        input = connection.getInputStream();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        setUpNormalProfilePic();
+                    }
+                    return input;
+                }
+
+                @Override
+                protected void onPostExecute(InputStream inputStream) {
+                    super.onPostExecute(inputStream);
+
+                    Bitmap FacebookBitmap = BitmapFactory.decodeStream(inputStream);
+                    profilePictureIV.setImageBitmap(FacebookBitmap);
+                }
+            };
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            setUpNormalProfilePic();
         } catch (IOException e) {
-            // Log exception
+            e.printStackTrace();
             setUpNormalProfilePic();
         }
-
     }
 
     private void setUpGoogleImageFromURL()
@@ -620,7 +663,6 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
         if(subURL.equals("https://graph")) {
             String fb_url = getFBImageURL(Profile.getCurrentProfile().getId());
             new GetProfileImage().execute(fb_url);
-
         }
         else {
             int urlLength = googleUserUrl.length();
@@ -732,7 +774,10 @@ public class MyProfileFragment extends Fragment implements OnSnackBarActionClick
         countrySpinner.setAdapter(countriesAdapter);
         if(user.getUserHasInfo()) {
             defaultCountry = user.getCountry();
-            countrySpinner.setSelection(countriesAdapter.getPosition(defaultCountry));
+            if(SaveSharedPreference.getIsFacebookSignedIn(getContext()))
+                countrySpinner.setVisibility(View.GONE);
+            else
+                countrySpinner.setSelection(countriesAdapter.getPosition(defaultCountry));
         }
         else {
             countrySpinner.setSelection(countriesAdapter.getPosition("United States"));

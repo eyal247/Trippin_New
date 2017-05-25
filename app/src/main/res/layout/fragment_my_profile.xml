@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Country:"
+                android:text="Home Base:"
                 android:id="@+id/profile_country_title"
                 android:layout_marginTop="45dp"
                 android:layout_marginLeft="20dp"
@@ -149,6 +149,18 @@
                 android:layout_toEndOf="@+id/profile_country_title"
                 android:visibility="invisible"
                 android:layout_toRightOf="@+id/profile_country_title" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/fb_location_edittext"
+                android:background="@null"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/list_item_dark_gray"
+                android:layout_alignBottom="@+id/profile_country_title"
+                android:layout_toEndOf="@+id/profile_country_title"
+                android:layout_toRightOf="@+id/profile_country_title"/>
 
             <Spinner
                 android:layout_width="wrap_content"

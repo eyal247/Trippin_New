@@ -81,7 +81,7 @@ public class User {
 
     }
 
-    public boolean loadDetailsFromFacebookProfile(Context ctx, Profile currentProfile, String email, String location) {
+    public boolean loadDetailsFromFacebookProfile(Context ctx, Profile currentProfile, String email, String location, String birthday) {
         boolean userUpdatedSuccessfully = false;
 
         if (currentProfile != null) {
@@ -89,8 +89,8 @@ public class User {
             password = currentProfile.getId();
             fname = currentProfile.getFirstName();
             lname = currentProfile.getLastName();
-            getFacebookUserCountry(location);
-            age = "18";
+            country = location;
+            age = Integer.toString(DateUtils.dateToAge(birthday));
             moto = AppConstants.EMPTY_STRING;
             encodedProfilePic = getFacebookProfilePicture(currentProfile.getId());
             signedUpWithFacebook = true;
@@ -106,10 +106,6 @@ public class User {
     private String getFacebookProfilePicture(String userID){
         String imageURL = "https://graph.facebook.com/" + userID + "/picture?type=large";
         return imageURL;
-    }
-
-    private void getFacebookUserCountry(String location) {
-        country = location;
     }
 
     private void getGoogleUserCountry(Person currentPerson) {

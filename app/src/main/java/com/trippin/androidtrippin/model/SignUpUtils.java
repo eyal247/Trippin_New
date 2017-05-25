@@ -252,7 +252,7 @@ public class SignUpUtils
 
     }
 
-    public static void checkFBUserWithServer(final Context ctx, String email, String id, final String location, final boolean signUpWithFacebook, final Profile currentProfile) {
+    public static void checkFBUserWithServer(final Context ctx, String email, String id, final String location, final String birthday, final boolean signUpWithFacebook, final Profile currentProfile) {
         String url = AppConstants.SERVER_URL + AppConstants.CHECK_IF_USER_EXISTS_URL;
         //String url = "http://192.168.203.2:3000/checkIfUserExists";
 
@@ -265,7 +265,7 @@ public class SignUpUtils
 
                         @Override
                         public void onResponse(JSONObject response) {
-                            handleFBCheckUserResponse(response, ctx, signUpWithFacebook, currentProfile, location);
+                            handleFBCheckUserResponse(response, ctx, signUpWithFacebook, currentProfile, location, birthday);
                         }
                     }, new Response.ErrorListener() {
 
@@ -281,7 +281,7 @@ public class SignUpUtils
         }
     }
 
-    private static void handleFBCheckUserResponse(JSONObject response, Context ctx, boolean signUpWithFacebook, Profile currProfile, String location)
+    private static void handleFBCheckUserResponse(JSONObject response, Context ctx, boolean signUpWithFacebook, Profile currProfile, String location, String birthday)
     {
         try
         {
@@ -289,7 +289,7 @@ public class SignUpUtils
             {
                 //user does not exist in DB
                 case AppConstants.RESPONSE_SUCCESS:
-                    handleFBResponseSuccess(ctx, signUpWithFacebook, currProfile, location);
+                    handleFBResponseSuccess(ctx, signUpWithFacebook, currProfile, location, birthday);
                     break;
                 case AppConstants.SIGN_UP_USER_EXISTS:
                     handleFBUserExists(ctx, signUpWithFacebook);
@@ -304,12 +304,12 @@ public class SignUpUtils
         }
     }
 
-    private static void handleFBResponseSuccess(Context ctx, boolean signUpWithFacebook, Profile currentProfile, String location) throws JSONException
+    private static void handleFBResponseSuccess(Context ctx, boolean signUpWithFacebook, Profile currentProfile, String location, String birthday) throws JSONException
     {
         if(signUpWithFacebook == false)
             switchToGetNameActivity(ctx, newUserJSON.getString("username"), newUserJSON.getString("password"));
         else {
-            sendFBUserDetails(ctx, true, null, signUpWithFacebook, currentProfile, location);
+            sendFBUserDetails(ctx, true, null, signUpWithFacebook, currentProfile, location, birthday);
         }
 
 
@@ -327,7 +327,8 @@ public class SignUpUtils
     }
 
     public static void sendFBUserDetails(final Context ctx, boolean addProfilePicture, String userProfilePictureStr,
-                                         final boolean signUpWithFacebook, Profile currentProfile, String location) throws JSONException
+                                         final boolean signUpWithFacebook, Profile currentProfile, String location, String birthday)
+                                            throws JSONException
     {
         JSONObject userJSON;
         String url = AppConstants.SERVER_URL + AppConstants.SIGN_UP_URL;
@@ -338,7 +339,7 @@ public class SignUpUtils
             user.loadDetailsFromIntent(((Activity) ctx).getIntent());
             user.setEncodedProfilePic(userProfilePictureStr);
         } else {
-            user.loadDetailsFromFacebookProfile(ctx, currentProfile, newUserJSON.getString("username"), location);
+            user.loadDetailsFromFacebookProfile(ctx, currentProfile, newUserJSON.getString("username"), location, birthday);
         }
         user.addJoinedDate();
 
