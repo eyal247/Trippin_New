@@ -1,10 +1,12 @@
 package com.trippin.androidtrippin.trippin;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -332,6 +334,7 @@ public class TripPlaceActivity extends MyActionBarActivity implements OnFragment
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void switchToImageActivity(ImageView iv, String imageID, Integer position)
     {
         iv.setTransitionName("robot");

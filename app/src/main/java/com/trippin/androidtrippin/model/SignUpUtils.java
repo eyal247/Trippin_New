@@ -3,6 +3,8 @@ package com.trippin.androidtrippin.model;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -28,6 +30,8 @@ import org.json.JSONObject;
  */
 public class SignUpUtils
 {
+    private static Logger logger;
+    private static final String TAG = "FacebookSignUpUtils";
     private static JSONObject newUserJSON = new JSONObject();
     private static User user = new User();
     //public static String seedValue = "ELBAKAERBNUMAI";
@@ -114,6 +118,7 @@ public class SignUpUtils
         else
             try {
                 ((MainActivity)ctx).findViewById(R.id.loading_panel_main_activity).setVisibility(View.GONE);
+                Log.e(TAG, "Google user exists, about to switch to home activity");
                 switchToHomeActivity(ctx, newUserJSON.getString("username"), signUpWithGoogle, "Google");
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -183,6 +188,7 @@ public class SignUpUtils
                 case AppConstants.RESPONSE_SUCCESS:
                     if(signUpWithGoogle)
                         ((MainActivity)ctx).findViewById(R.id.loading_panel_main_activity).setVisibility(View.GONE);
+                    Log.e(TAG, "Google user signed up, about to switch to home activity");
                     switchToHomeActivity(ctx, username, signUpWithGoogle, "Google");
                     break;
                 case AppConstants.RESPONSE_FAILURE:
@@ -235,24 +241,36 @@ public class SignUpUtils
 
     private static void switchToHomeActivity(Context ctx, String username, boolean signUpWithSocialNetwork, String network)
     {
+        Intent intent = new Intent(ctx, HomeActivity.class);
+
+        logger.addRecordToLog("inside switchToHomeActivity");
         SaveSharedPreference.setUserName(ctx.getApplicationContext(), username);
         if(signUpWithSocialNetwork) {
             if (network.equals("Google")) {
                 SaveSharedPreference.setIsGoogleSignIn(ctx.getApplicationContext(), true);
                 SaveSharedPreference.setIsFacebookSignIn(ctx.getApplicationContext(), false);
             } else if (network.equals("Facebook")) {
+                Log.e(TAG, "getting SharedPrefrences if network equals Facebook");
                 SaveSharedPreference.setIsFacebookSignIn(ctx.getApplicationContext(), true);
                 SaveSharedPreference.setIsGoogleSignIn(ctx.getApplicationContext(), false);
             }
         }
-        Intent intent = ((Activity)ctx).getIntent();
+
         intent.putExtra("username", user.getUsername());
-        intent.setClass(ctx, HomeActivity.class);
-        ctx.startActivity(intent);
+        //intent.setClass(ctx, HomeActivity.class);
+        Log.e(TAG, "switching to HomeActivity");
+        try {
+            ctx.startActivity(intent);
+        }
+        catch (Exception e)
+        {
+            logger.addRecordToLog("Caught an Exception in switchToHomeActivity: " + e.getMessage());
+        }
 
     }
 
     public static void checkFBUserWithServer(final Context ctx, String email, String id, final String location, final String birthday, final boolean signUpWithFacebook, final Profile currentProfile) {
+        logger.addRecordToLog("inside checkFBUserWithServer");
         String url = AppConstants.SERVER_URL + AppConstants.CHECK_IF_USER_EXISTS_URL;
         //String url = "http://192.168.203.2:3000/checkIfUserExists";
 
@@ -289,9 +307,12 @@ public class SignUpUtils
             {
                 //user does not exist in DB
                 case AppConstants.RESPONSE_SUCCESS:
+                    Log.e(TAG,"SUCCESS");
+                    logger.addRecordToLog("Handle FB Success");
                     handleFBResponseSuccess(ctx, signUpWithFacebook, currProfile, location, birthday);
                     break;
                 case AppConstants.SIGN_UP_USER_EXISTS:
+                    logger.addRecordToLog("Handle FB USER EXISTS");
                     handleFBUserExists(ctx, signUpWithFacebook);
                     break;
                 default:
@@ -309,6 +330,7 @@ public class SignUpUtils
         if(signUpWithFacebook == false)
             switchToGetNameActivity(ctx, newUserJSON.getString("username"), newUserJSON.getString("password"));
         else {
+            Log.e(TAG,"inside handleFBResponseSuccess");
             sendFBUserDetails(ctx, true, null, signUpWithFacebook, currentProfile, location, birthday);
         }
 
@@ -330,6 +352,7 @@ public class SignUpUtils
                                          final boolean signUpWithFacebook, Profile currentProfile, String location, String birthday)
                                             throws JSONException
     {
+        Log.e(TAG, "inside sendFBUserDetails");
         JSONObject userJSON;
         String url = AppConstants.SERVER_URL + AppConstants.SIGN_UP_URL;
         //String url = "http://192.168.203.116:3000/signUp";
@@ -414,9 +437,11 @@ public class SignUpUtils
                 case AppConstants.RESPONSE_SUCCESS:
                     if(signUpWithFacebook)
                         ((MainActivity)ctx).findViewById(R.id.loading_panel_main_activity).setVisibility(View.GONE);
+                    Log.e(TAG, "in handleFBSignUpResponse success - should go to HomeActivity");
                     switchToHomeActivity(ctx, username, signUpWithFacebook, "Facebook");
                     break;
                 case AppConstants.RESPONSE_FAILURE:
+                    Log.e(TAG, "in handleFBSignUpResponse Failure - should go to HomeActivity");
                     handleFBSignUpErrorResponse(ctx, signUpWithFacebook);
 //                    Toast.makeText(ctx, "Sign Up failed. Server error.", Toast.LENGTH_LONG).show();
                     break;
@@ -437,6 +462,7 @@ public class SignUpUtils
             Toast.makeText(ctx, "User already exists", Toast.LENGTH_LONG).show();
         else
             try {
+                logger.addRecordToLog("inside handleFBUserExists - should switch to HomeActivity");
                 ((MainActivity)ctx).findViewById(R.id.loading_panel_main_activity).setVisibility(View.GONE);
                 switchToHomeActivity(ctx, newUserJSON.getString("username"), signUpWithFacebook, "Facebook");
             } catch (JSONException e) {

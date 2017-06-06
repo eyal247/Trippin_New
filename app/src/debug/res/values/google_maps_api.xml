@@ -3,33 +3,11 @@
 
     TODO: Before you run your application, you need a Google Maps API key.
 
-    To get one, follow this link, follow the directions and press "Create" at the end:
 
-https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=AD:9E:EC:E2:B5:1C:7C:41:2D:74:1E:98:66:4A:90:07:73:33:9D:88%3Bcom.example.eyalengel.trippin
-
-    You can also add your credentials to an existing key, using this line:
-
-    Eyal's Debug fingerprint: AD:9E:EC:E2:B5:1C:7C:41:2D:74:1E:98:66:4A:90:07:73:33:9D:88;com.example.eyalengel.trippin
-    Eyal's Debug API KEY: AIzaSyCOrRJR9BjCg0zQfGDhsySHYq7Cev1KA44
-
-    Eyal's Release fingerprint: 28:BF:4E:9E:34:EB:38:BC:EB:4E:4B:27:A2:A5:9F:C2:6B:33:67:ED
-    Eyal's Release API Key: AIzaSyBcuwzx4Pa5WJS0Cv8uvi4xDKDB__7YEIs
-
-    Eyal's AutoComplete Key (Google Server Key): AIzaSyAHVhL7VhaZ4BG-HfILxUsqGZqafzCv3Ps
-
-
-    Dor's fingerprint: 47:85:1A:1F:90:6C:2C:28:37:17:65:5B:A7:BC:06:3F:A3:1C:D2:62;com.example.eyalengel.trippin
-    Dor's API_KEY: AIzaSyChyUDjGCRBNyzN3hVZfs07jktFz8Cfq9M
-    Dor's Server_Key: AIzaSyAhI-EPSLgONZ2sUJ31B34TKBG84Jt5IUk
-    Shai's fingerprint: D3:5A:06:5B:C4:64:7A:FC:55:1B:BA:AB:D5:83:5F:77:9F:CC:20:C1;com.example.eyalengel.trippin;
-    Shai's API_KEY: AIzaSyDW3idFakOJzwyJIeY-mKxVfb9-dqqzKz8
-
-    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
-    string in this file.
     --></string>
 
     <!-- Change to Debug Key when developing. Change to Release Key before generating new APK file for the store !!!!! -->
-    <string name="google_maps_key" templateMergeStrategy="preserve">YOUR GOOGLE API KEY HERE</string>
-    <string name="google_places_geo_key" templateMergeStrategy="preserve">YOUR GOOGLE API KEY HERE</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve">YOUR_GOOGLE_API_HERE</string>
+    <string name="google_places_geo_key" templateMergeStrategy="preserve">YOUR_GOOGLE_API_HERE</string>
 
 </resources>

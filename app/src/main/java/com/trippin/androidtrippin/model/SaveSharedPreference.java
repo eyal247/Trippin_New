@@ -6,10 +6,13 @@ import android.preference.PreferenceManager;
 
 public class SaveSharedPreference
 {
-    static final String PREF_USER_NAME = "";
+    static final String PREF_USER_NAME = "username";
     static final String TRIP_ID = "tripID";
     static final String IS_GOOGLE_SIGN_IN = "isGoogleSignIN";
     static final String IS_FB_SIGN_IN = "isFacebookSignIN";
+    static final String FB_ACCESS_TOKEN = "FBAccessToken";
+    static final String FB_EXIT_APP = "FBExitApp";
+
 
     static SharedPreferences getSharedPreferences(Context ctx)
     {
@@ -68,5 +71,17 @@ public class SaveSharedPreference
     {
         SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
         editor.remove(PREF_USER_NAME);
+    }
+
+    public static String getFbAccessToken(Context ctx)
+    {
+        return getSharedPreferences(ctx).getString(FB_ACCESS_TOKEN, "EYAL");
+    }
+
+    public static void setFbAccessToken(Context ctx, String accessToken)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(FB_ACCESS_TOKEN, accessToken);
+        editor.commit();
     }
 }

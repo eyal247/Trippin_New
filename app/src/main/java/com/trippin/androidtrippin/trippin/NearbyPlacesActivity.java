@@ -59,7 +59,7 @@ public class NearbyPlacesActivity extends MyActionBarActivity implements OnFragm
         super.onCreate(savedInstanceState);
         //currTrip = getIntent().getParcelableExtra("tripObject");
         setContentView(R.layout.activity_nearby_places);
-        chosenRadius = 5000;
+        chosenRadius = 500;
 //        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(R.color.white));
 
         getLatLng();
@@ -305,7 +305,7 @@ public class NearbyPlacesActivity extends MyActionBarActivity implements OnFragm
     }
 
     public void onChangeRadiusButtonClick() {
-        String[] radiusOptions = {"1 KM", "2 KM", "5 KM", "10 KM"};
+        String[] radiusOptions = {"500 M", "1 KM", "2 KM", "5 KM", "10 KM"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.change_radius_title)
                 .setItems(radiusOptions, new DialogInterface.OnClickListener()
@@ -326,15 +326,18 @@ public class NearbyPlacesActivity extends MyActionBarActivity implements OnFragm
         switch(which)
         {
             case 0:
-                chosenRadius = 1000;
+                chosenRadius = 500;
                 break;
             case 1:
-                chosenRadius = 2000;
+                chosenRadius = 1000;
                 break;
             case 2:
-                chosenRadius = 5000;
+                chosenRadius = 2000;
                 break;
             case 3:
+                chosenRadius = 5000;
+                break;
+            case 4:
                 chosenRadius = 10000;
                 break;
         }

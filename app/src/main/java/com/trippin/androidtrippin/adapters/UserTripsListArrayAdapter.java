@@ -1,8 +1,11 @@
 package com.trippin.androidtrippin.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +20,21 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareContent;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareMediaContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.trippin.androidtrippin.model.AppConstants;
 import com.trippin.androidtrippin.model.AppUtils;
 import com.trippin.androidtrippin.model.DateUtils;
 import com.trippin.androidtrippin.model.OnAdapterChangeListener;
 import com.trippin.androidtrippin.model.Trip;
 import com.trippin.androidtrippin.trippin.AppController;
+import com.trippin.androidtrippin.trippin.HomeActivity;
 import com.trippin.androidtrippin.trippin.MainActivity;
 import com.trippin.androidtrippin.R;
 
@@ -47,6 +59,8 @@ public class UserTripsListArrayAdapter extends ArrayAdapter<Trip>
     private TextView goingWithTv;
     private TextView typeTv;
     private FloatingActionButton tripSettingsFAB;
+    private ShareButton fbShareButton;
+    private FloatingActionButton shareButton;
     private Bitmap tripBitmap;
     private String tripCoverPhotoID;
     //private StringBuilder key;
@@ -77,13 +91,41 @@ public class UserTripsListArrayAdapter extends ArrayAdapter<Trip>
         typeTv = (TextView) rowView.findViewById(R.id.user_trips_type_tv);
         tripSettingsFAB = (FloatingActionButton) rowView.findViewById(R.id.trip_settings_FAB);
         tripSettingsFAB.setFocusable(false);
-        setOnClicktripSettingsFAB(tripSettingsFAB, position);
-
+        fbShareButton = (ShareButton)rowView.findViewById(R.id.fb_share_button);
+        shareButton = (FloatingActionButton) rowView.findViewById(R.id.fb_image_button);
+        shareButton.setFocusable(false);
+        setOnClickTripSettingsFAB(tripSettingsFAB, position);
+        setOnClickShareTripOnFacebook(shareButton, position);
         attachContentToView(position, tripImageView);
         rowsViews[position] = rowView;
 
         return rowView;
     }
+
+    private void shareTrip(int position) {
+        SharePhoto sharePhoto = new SharePhoto.Builder()
+                .setBitmap(tripBitmap)
+                .build();
+
+        SharePhotoContent shareContent = new SharePhotoContent.Builder()
+                .addPhoto(sharePhoto)
+                .build();
+
+        ShareDialog shareDialog = new ShareDialog((Activity) context);
+        shareDialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
+
+    }
+
+    private void setOnClickShareTripOnFacebook(ImageButton shareButton, final int position) {
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fbShareButton.performClick();
+                shareTrip(position);
+            }
+        });
+    }
+
 
     private void attachContentToView(int position, ImageView tripImageView)
     {
@@ -186,7 +228,7 @@ public class UserTripsListArrayAdapter extends ArrayAdapter<Trip>
         }
     }
 
-    private void setOnClicktripSettingsFAB(FloatingActionButton tripSettingsFAB, final int position)
+    private void setOnClickTripSettingsFAB(FloatingActionButton tripSettingsFAB, final int position)
     {
         tripSettingsFAB.setOnClickListener(new View.OnClickListener()
         {

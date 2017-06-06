@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
+import com.trippin.androidtrippin.model.Logger;
 import com.trippin.androidtrippin.trippin.NewTripForm;
 import com.trippin.androidtrippin.trippin.MyActionBarActivity;
 import com.trippin.androidtrippin.R;
@@ -38,6 +42,7 @@ import java.util.ArrayList;
 
 public class HomeActivity extends MyActionBarActivity implements OnFragmentInteractionListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
+    private Logger logger;
     private String[] navigationListStrings;
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
@@ -67,6 +72,7 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
         username = SaveSharedPreference.getUserName(getApplicationContext());
         isGoogleSignIn = (SaveSharedPreference.getIsGoogleSignIn(getApplicationContext()));
         isFacebookSignIn = (SaveSharedPreference.getIsFacebookSignedIn(getApplicationContext()));
+        System.out.println("isFacebookSignIn: " + isFacebookSignIn.toString());
         createNavigationDrawer();
         fragmentManager = getSupportFragmentManager();
         showHomeFragment(AppConstants.NOT_FOUND);
@@ -75,7 +81,6 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
             AppController.getInstance().getmGoogleApiClient().connect();
             mGoogleApiClient = AppController.getInstance().getmGoogleApiClient();
         }
-        System.out.println("IN HOME ACTIVITY onCreate()");
     }
 
     @Override
@@ -83,7 +88,6 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
     {
         //if(getSupportFragmentManager().getFragment(outState, "homeFragment") != null)
             getSupportFragmentManager().putFragment(outState, "fragment", currFragment);
-        System.out.println("In onSaveInstanceState in HOME ACTIVITY");
         super.onSaveInstanceState(outState);
     }
 
@@ -94,8 +98,9 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
 
     private void showHomeFragment(int position)
     {
-        if (homeFragment == null)
+        if (homeFragment == null) {
             homeFragment = new HomeOfUserFragment();
+        }
 
         currFragment = homeFragment;
         fragmentManager.beginTransaction().replace(R.id.content_frame, homeFragment).commit();
@@ -366,6 +371,7 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
         if(isGoogleSignIn) {
             signOut = true;
             onSignOutClicked();
+            intent.putExtra("googleLogout", true);
             isGoogleSignIn = false;
 //            mGoogleApiClient = buildGoogleApiClient();
 //            AppController.getInstance().setmGoogleApiClient(mGoogleApiClient);
@@ -375,8 +381,15 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
         else if (isFacebookSignIn) {
             signOut = true;
             isFacebookSignIn = false;
-            LoginManager.getInstance().logOut();
             SaveSharedPreference.setIsFacebookSignIn(getApplicationContext(), false);
+            isFacebookSignIn = false;
+            try {
+                if (AccessToken.getCurrentAccessToken() != null) {
+                    LoginManager.getInstance().logOut();
+                }
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
         startActivity(intent);
     }
@@ -438,16 +451,9 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
     {
         if(mGoogleApiClient != null && mGoogleApiClient.isConnected() || SaveSharedPreference.getIsGoogleSignIn(getApplicationContext())) {
             Plus.AccountApi.clearDefaultAccount(AppController.getInstance().getmGoogleApiClient());
-            revokeAccess();
+            //revokeAccess();
             SaveSharedPreference.setIsGoogleSignIn(getApplicationContext(), false);
             SaveSharedPreference.setUserName(getApplicationContext(), "");
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("googleLogout", true);
-        }
-        if(isFacebookSignIn) {
-            LoginManager.getInstance().logOut();
-            isFacebookSignIn = false;
-            SaveSharedPreference.setIsFacebookSignIn(getApplicationContext(), false);
         }
     }
 
@@ -458,7 +464,6 @@ public class HomeActivity extends MyActionBarActivity implements OnFragmentInter
                     @Override
                     public void onResult(Status status) {
                         AppController.getInstance().getmGoogleApiClient().disconnect();
-                        //mGoogleApiClient.connect();
                         // Clear data and go to login activity
                     }
                 });

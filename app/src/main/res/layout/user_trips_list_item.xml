@@ -4,88 +4,124 @@
               android:layout_height="300dp"
               android:layout_width="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/user_trip_item">
 
-    <ImageView
+
+        <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:id="@+id/user_trip_img"/>
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=""
+            android:id="@+id/trip_name_tv"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="26sp"
+            style="@style/AudioFileInfoOverlayText"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical|center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            android:textSize="16sp"
+            style="@style/AudioFileInfoOverlayText"
+            android:id="@+id/user_trip_dest"
+            android:textColor="@color/white"
+            android:layout_below="@+id/trip_name_tv"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            style="@style/AudioFileInfoOverlayText"
+            android:id="@+id/user_trip_dates_tv"
+            android:layout_below="@+id/user_trip_dest"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            style="@style/AudioFileInfoOverlayText"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:id="@+id/user_trips_with_tv"
+            android:layout_below="@+id/user_trip_dates_tv"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text=""
+            style="@style/AudioFileInfoOverlayText"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:id="@+id/user_trips_type_tv"
+            android:layout_below="@+id/user_trips_with_tv"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=""
-        android:id="@+id/trip_name_tv"
-        android:layout_gravity="center"
-        android:textStyle="bold"
-        android:textSize="26sp"
-        style="@style/AudioFileInfoOverlayText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/white"
-        android:layout_marginTop="70dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center_vertical|center_horizontal"/>
+        android:id="@+id/buttons_wrapper"
+        android:layout_marginBottom="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
-        android:textSize="16sp"
-        style="@style/AudioFileInfoOverlayText"
-        android:id="@+id/user_trip_dest"
-        android:textColor="@color/white"
-        android:layout_below="@+id/trip_name_tv"
-        android:layout_centerHorizontal="true"/>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="center"
+            android:id="@+id/trip_settings_FAB"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_settings_black_24dp_a"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        style="@style/AudioFileInfoOverlayText"
-        android:id="@+id/user_trip_dates_tv"
-        android:layout_below="@+id/user_trip_dest"
-        android:layout_centerHorizontal="true"/>
+        <com.facebook.share.widget.ShareButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/fb_share_button"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/trip_settings_FAB"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:visibility="gone"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
-        style="@style/AudioFileInfoOverlayText"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:id="@+id/user_trips_with_tv"
-        android:layout_below="@+id/user_trip_dates_tv"
-        android:layout_centerHorizontal="true"/>
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="center"
+            android:id="@+id/fb_image_button"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/trip_settings_FAB"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/fb_image_button"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=""
-        style="@style/AudioFileInfoOverlayText"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:id="@+id/user_trips_type_tv"
-        android:layout_below="@+id/user_trips_with_tv"
-        android:layout_centerHorizontal="true"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:scaleType="center"
-        android:id="@+id/trip_settings_FAB"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/ic_settings_black_24dp_a"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_alignParentLeft="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

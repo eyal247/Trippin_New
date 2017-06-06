@@ -9,7 +9,7 @@ android {
         applicationId "com.trippin.androidtrippin"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 4
+        versionCode 6
         versionName "1.0.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

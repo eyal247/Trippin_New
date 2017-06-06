@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -35,6 +36,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.daimajia.androidanimations.library.Techniques;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -57,6 +59,7 @@ import com.google.android.gms.plus.model.people.Person;
 import com.trippin.androidtrippin.R;
 import com.trippin.androidtrippin.model.AppConstants;
 import com.trippin.androidtrippin.model.AppUtils;
+import com.trippin.androidtrippin.model.Logger;
 import com.trippin.androidtrippin.model.SaveSharedPreference;
 import com.trippin.androidtrippin.model.SignUpUtils;
 
@@ -66,6 +69,10 @@ import com.facebook.appevents.AppEventsLogger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -83,6 +90,7 @@ public class MainActivity extends MyActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener,
         ResultCallback<People.LoadPeopleResult>
 {
+    private Logger logger;
     private static RequestQueue serverRequestQueue;
     private EditText usernameTB;
     private EditText passwordTB;
@@ -129,11 +137,10 @@ public class MainActivity extends MyActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         callbackManager = CallbackManager.Factory.create();
-        checkIfLoggedIn();
         mGoogleApiClient = buildGoogleApiClient();
         AppController.getInstance().setmGoogleApiClient(mGoogleApiClient);
+        checkIfLoggedIn();
         setContentView(R.layout.activity_main);
         getUIComponents();
         serverRequestQueue = Volley.newRequestQueue(this);
@@ -227,6 +234,7 @@ public class MainActivity extends MyActionBarActivity implements
     private void handleFacebookLogin()
     {
         setPermissions();
+        mainActivityLayout.setVisibility(View.INVISIBLE);
         registerCallback();
     }
 
@@ -238,6 +246,7 @@ public class MainActivity extends MyActionBarActivity implements
         FBLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                SaveSharedPreference.setFbAccessToken(getApplicationContext(), loginResult.getAccessToken().getToken());
                 final boolean signUpWithFacebook = true;
                 GraphRequest graphRequest   =   GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
                 {
@@ -246,8 +255,6 @@ public class MainActivity extends MyActionBarActivity implements
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response)
                     {
-                        Log.e(TAG,object.toString());
-                        Log.e(TAG,response.toString());
                         try {
                             id = object.getString("id");
                             if (object.has("email"))
@@ -275,12 +282,12 @@ public class MainActivity extends MyActionBarActivity implements
 
             @Override
             public void onCancel() {
-                // App code
+
             }
 
             @Override
             public void onError(FacebookException exception) {
-                // App code
+
             }
         });
     }
@@ -448,6 +455,7 @@ public class MainActivity extends MyActionBarActivity implements
             else if (SaveSharedPreference.getIsFacebookSignedIn(getApplicationContext())) {
                 mSignInProgress = FB_LOGIN;
             }
+            Log.e(TAG, "user exists, about to switch to home activity");
             switchToHomeActivity(SaveSharedPreference.getUserName(getApplicationContext()));
         }
     }
@@ -800,27 +808,32 @@ public class MainActivity extends MyActionBarActivity implements
             }
         }
         else if (requestCode == CallbackManagerImpl.RequestCodeOffset.Login.toRequestCode()) {
+
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
 
 
     }
 
-//    @Override
-//    protected void onResume()
-//    {
-//        super.onResume();
-//        // Logs 'install' and 'app activate' App Events.
-//        AppEventsLogger.activateApp(this);
-//    }
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        // Logs 'install' and 'app activate' App Events.
+        System.out.println("ACCESS TOKEN: " + SaveSharedPreference.getFbAccessToken(this));
+    }
 //
 //    @Override
 //    protected void onPause()
 //    {
 //        super.onPause();
-//        // Logs 'app deactivate' App Event.
-//        AppEventsLogger.deactivateApp(this);
 //    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 
     @Override
     public void onResult(People.LoadPeopleResult peopleData) {
@@ -835,83 +848,6 @@ public class MainActivity extends MyActionBarActivity implements
         mSignInProgress = STATE_GOOGLE_SIGN_IN;
         AppController.getInstance().getmGoogleApiClient().connect();
     }
-
-//    private void sendGoogleUserDetailsToServer(final String email)
-//    {
-//        JSONObject googleUserJSON = null;
-//        String url = AppConstants.SERVER_URL + AppConstants.SIGN_UP_URL;
-//        //String url = "http://10.0.0.5:3000/completeSignup";
-//
-//        try
-//        {
-//            googleUserJSON = getGoogleUserDetailsJSON(email);
-//            JsonObjectRequest jsObjRequest = new JsonObjectRequest
-//                    (Request.Method.POST, url, googleUserJSON, new Response.Listener<JSONObject>() {
-//
-//                        @Override
-//                        public void onResponse(JSONObject response) {
-//                            handleGoogleUserDetailsResponse(response, email);
-//                        }
-//                    }, new Response.ErrorListener() {
-//
-//                        @Override
-//                        public void onErrorResponse(VolleyError error) {
-//                            System.out.println("error response on sendGoogleUserDetailsToServer()");
-//                        }
-//                    });
-//
-//            MainActivity.addRequestToQueue(jsObjRequest);
-//        }
-//        catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private JSONObject getGoogleUserDetailsJSON(String email) throws JSONException
-//    {
-//        JSONObject googleUserJSON = new JSONObject();
-//        String firstName = null;
-//        String lastName = null;
-//        String imageUrl = null;
-//
-//        Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-//        if (currentPerson != null) {
-//            firstName = currentPerson.getName().getGivenName();
-//            lastName = currentPerson.getName().getFamilyName();
-//            imageUrl = currentPerson.getImage().getUrl();
-//        }
-//
-//        googleUserJSON.put("username", email);
-//        googleUserJSON.put("password", "googleUserPassword");
-//        googleUserJSON.put("fname", firstName);
-//        googleUserJSON.put("lname", lastName);
-//        googleUserJSON.put("profilePicture", imageUrl);
-//        googleUserJSON.put("encodedProfilePic", "profilePictureString");
-//
-//        return googleUserJSON;
-//    }
-//
-//    private void handleGoogleUserDetailsResponse(JSONObject response, String email)
-//    {
-//        try
-//        {
-//            switch(response.getString("result"))
-//            {
-//                case AppConstants.RESPONSE_SUCCESS:
-//                    switchToHomeActivity(email);
-//                    break;
-//                case AppConstants.RESPONSE_FAILURE:
-//                    Toast.makeText(this, "Google Sign Up failed. Server error.", Toast.LENGTH_LONG).show();
-//                    break;
-//                default:
-//                    System.out.println("error on handleGoogleUserDetailsResponse();");
-//                    break;
-//            }
-//        }
-//        catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     // download Google Account profile image, to complete profile
     private class LoadProfileImage extends AsyncTask

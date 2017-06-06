@@ -25,6 +25,7 @@ import com.trippin.androidtrippin.model.AppConstants;
 import com.trippin.androidtrippin.model.AppUtils;
 import com.trippin.androidtrippin.model.DateUtils;
 import com.trippin.androidtrippin.model.LoadTripUtils;
+import com.trippin.androidtrippin.model.Logger;
 import com.trippin.androidtrippin.model.OnAdapterChangeListener;
 import com.trippin.androidtrippin.model.OnFragmentInteractionListener;
 import com.trippin.androidtrippin.model.OnSnackBarActionClickListener;
@@ -84,6 +85,7 @@ public class HomeOfUserFragment extends Fragment implements OnAdapterChangeListe
     private UserTripsListArrayAdapter myAdapter;
     private TextView noUserTripsTV;
     private ImageButton myTripsRefreshIB;
+    private Logger logger;
 
     private final OnSnackBarActionClickListener snackBarListener = this;
 
